@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A5FD0">
+
 <title>PHILIPS | 나의 가전 사용 유형 테스트</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +13,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <style>
+
+/* ===============================
+   기본 색상 및 설정
+================================ */
+
 :root {
   --blue: #0A5FD0;
   --blue-deep: #0644A0;
@@ -23,18 +29,28 @@
   --white: #FFFFFF;
   --ink: #10244A;
   --ink-soft: #55627D;
-  --font: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  --font: "Noto Sans KR", "Apple SD Gothic Neo",
+          "Malgun Gothic", sans-serif;
 }
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font);
+  font-size: 16px;
   line-height: 1.6;
   word-break: keep-all;
 }
+
 button {
   font: inherit;
   color: inherit;
@@ -42,56 +58,111 @@ button {
   border: 0;
   background: none;
 }
-h1, h2, h3, p { margin: 0; }
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
 :focus-visible {
   outline: 3px solid var(--blue);
   outline-offset: 3px;
 }
+
+/* ===============================
+   전체 페이지
+================================ */
+
 .app {
   max-width: 520px;
   min-height: 100svh;
   margin: 0 auto;
-  padding: max(20px, env(safe-area-inset-top)) 20px
-           max(32px, env(safe-area-inset-bottom));
+
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: max(32px, env(safe-area-inset-bottom));
+  padding-left: 20px;
+  padding-right: 20px;
+
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* 상단 공식 로고 */
+/* ===============================
+   상단 로고 영역
+================================ */
+
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-}
-.brand {
-  display: block;
-  width: 116px;
-  max-width: 42%;
-  height: auto;
-  object-fit: contain;
-}
-.event {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .06em;
-  color: var(--ink-soft);
-  text-align: right;
+  gap: 14px;
+  width: 100%;
+  min-height: 58px;
 }
 
-/* 화면 */
-.screen[hidden] { display: none; }
+/* PHILIPS 공식 로고 */
+.brand {
+  display: block;
+  width: 165px;
+  max-width: 49%;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 1;
+}
+
+/* CCFK 공식 로고 */
+.ccfk-logo {
+  display: block;
+  width: 165px;
+  max-width: 46%;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 1;
+}
+
+/* 작은 모바일 화면 */
+@media (max-width: 380px) {
+  .topbar {
+    gap: 10px;
+    min-height: 48px;
+  }
+
+  .brand {
+    width: 145px;
+  }
+
+  .ccfk-logo {
+    width: 145px;
+  }
+}
+
+/* ===============================
+   화면 전환
+================================ */
+
+.screen[hidden] {
+  display: none;
+}
+
 .screen {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  animation: rise .4s ease both;
+  animation: rise .45s ease both;
 }
+
 @keyframes rise {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
+
 .eyebrow {
   font-size: 12px;
   font-weight: 700;
@@ -99,22 +170,28 @@ h1, h2, h3, p { margin: 0; }
   text-transform: uppercase;
   color: var(--blue);
 }
+
 .title {
   font-size: clamp(28px, 8.4vw, 38px);
   line-height: 1.28;
   font-weight: 900;
   letter-spacing: -.02em;
 }
+
 .title em {
   font-style: normal;
   color: var(--blue);
 }
+
 .lead {
   color: var(--ink-soft);
   font-size: 15px;
 }
 
-/* 메인 비주얼 */
+/* ===============================
+   메인 비주얼
+================================ */
+
 .hero-art {
   position: relative;
   height: 150px;
@@ -122,6 +199,7 @@ h1, h2, h3, p { margin: 0; }
   overflow: hidden;
   background: linear-gradient(135deg, #E6F0FB, #F3E4DB);
 }
+
 .hero-art .arch {
   position: absolute;
   left: 26px;
@@ -131,6 +209,7 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 48px 48px 0 0;
   background: var(--blue);
 }
+
 .hero-art .arch::after {
   content: "";
   position: absolute;
@@ -138,6 +217,7 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 34px 34px 0 0;
   background: rgba(255,255,255,.22);
 }
+
 .hero-art .disc {
   position: absolute;
   left: 112px;
@@ -147,6 +227,7 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 50%;
   background: var(--wood);
 }
+
 .hero-art .bar {
   position: absolute;
   right: 24px;
@@ -154,9 +235,10 @@ h1, h2, h3, p { margin: 0; }
   width: 70px;
   height: 84px;
   border-radius: 18px 18px 0 0;
-  background: white;
+  background: #fff;
   box-shadow: 0 10px 24px -14px rgba(16,36,74,.5);
 }
+
 .hero-art .tags {
   position: absolute;
   top: 16px;
@@ -166,21 +248,34 @@ h1, h2, h3, p { margin: 0; }
   align-items: flex-end;
   gap: 6px;
 }
+
 .hero-art .tags span {
   font-size: 13px;
   font-weight: 700;
   padding: 4px 12px;
   border-radius: 99px;
 }
-.hero-art .t1 { background: var(--wood); color: white; }
-.hero-art .t2 { background: white; color: var(--blue); }
 
-/* 유형 카드 */
+.hero-art .tags .t1 {
+  background: var(--wood);
+  color: #fff;
+}
+
+.hero-art .tags .t2 {
+  background: #fff;
+  color: var(--blue);
+}
+
+/* ===============================
+   유형 소개 카드
+================================ */
+
 .types {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+
 .type-card {
   border-radius: 20px;
   padding: 16px 14px 18px;
@@ -188,17 +283,39 @@ h1, h2, h3, p { margin: 0; }
   flex-direction: column;
   gap: 8px;
 }
-.type-card.quick { background: var(--sky); }
-.type-card.multi { background: var(--blush); }
-.type-card svg { width: 30px; height: 30px; }
-.quick svg { color: var(--blue); }
-.multi svg { color: var(--wood-deep); }
-.type-card h3 { font-size: 16px; font-weight: 900; }
+
+.type-card.quick {
+  background: var(--sky);
+}
+
+.type-card.multi {
+  background: var(--blush);
+}
+
+.type-card svg {
+  width: 30px;
+  height: 30px;
+}
+
+.type-card.quick svg {
+  color: var(--blue);
+}
+
+.type-card.multi svg {
+  color: var(--wood-deep);
+}
+
+.type-card h3 {
+  font-size: 16px;
+  font-weight: 900;
+}
+
 .type-card p {
   font-size: 12.5px;
   line-height: 1.5;
   color: var(--ink-soft);
 }
+
 .meta {
   display: flex;
   gap: 8px;
@@ -206,11 +323,17 @@ h1, h2, h3, p { margin: 0; }
   font-size: 13px;
   color: var(--ink-soft);
 }
+
 .meta span {
   padding: 4px 12px;
   border-radius: 99px;
   background: rgba(16,36,74,.06);
 }
+
+/* ===============================
+   버튼
+================================ */
+
 .btn {
   display: flex;
   align-items: center;
@@ -220,19 +343,31 @@ h1, h2, h3, p { margin: 0; }
   min-height: 58px;
   border-radius: 99px;
   background: var(--blue);
-  color: white;
+  color: #fff;
   font-weight: 700;
   font-size: 17px;
   box-shadow: 0 14px 24px -14px rgba(10,95,208,.9);
-  transition: transform .15s, background .2s;
+  transition: transform .15s ease, background .2s ease;
 }
-.btn:hover { background: var(--blue-deep); }
-.btn:active { transform: scale(.98); }
+
+.btn:hover {
+  background: var(--blue-deep);
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
 .btn.ghost {
   background: transparent;
   color: var(--blue);
   box-shadow: inset 0 0 0 2px var(--blue);
 }
+
+.btn.ghost:hover {
+  background: var(--sky);
+}
+
 .foot {
   margin-top: auto;
   padding-top: 8px;
@@ -241,55 +376,78 @@ h1, h2, h3, p { margin: 0; }
   text-align: center;
 }
 
-/* 질문 */
+/* ===============================
+   질문 화면
+================================ */
+
 .quiz-head {
   display: flex;
   align-items: center;
   gap: 14px;
 }
+
 .back {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: white;
+  background: var(--white);
   display: grid;
   place-items: center;
   flex: none;
+  box-shadow: 0 2px 8px rgba(16,36,74,.12);
 }
-.back svg { width: 18px; height: 18px; }
+
+.back svg {
+  width: 18px;
+  height: 18px;
+}
+
 .progress {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 6px;
 }
+
 .progress i {
   height: 6px;
   border-radius: 4px;
   background: rgba(16,36,74,.12);
+  transition: background .3s;
 }
-.progress i.done { background: var(--blue); }
+
+.progress i.done {
+  background: var(--blue);
+}
+
 .count {
   font-size: 13px;
   font-weight: 700;
   color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
+
 .qnum {
   font-size: 64px;
   line-height: 1;
   font-weight: 900;
   color: var(--blue);
+  letter-spacing: -.04em;
 }
+
 .question {
   font-size: clamp(22px, 6.4vw, 27px);
   line-height: 1.4;
   font-weight: 700;
+  letter-spacing: -.01em;
 }
+
 .options {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
+
 .option {
   display: grid;
   grid-template-columns: 36px 1fr;
@@ -298,15 +456,18 @@ h1, h2, h3, p { margin: 0; }
   text-align: left;
   padding: 18px;
   min-height: 84px;
-  background: white;
+  background: var(--white);
   border-radius: 20px;
+  box-shadow: inset 0 0 0 2px transparent,
+              0 8px 20px -16px rgba(16,36,74,.5);
+  transition: transform .15s ease,
+              box-shadow .2s ease,
+              background .2s ease;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
-  box-shadow: inset 0 0 0 2px transparent,
-              0 8px 20px -16px rgba(16,36,74,.5);
-  transition: transform .15s, box-shadow .2s;
 }
+
 .option .letter {
   width: 36px;
   height: 36px;
@@ -317,58 +478,92 @@ h1, h2, h3, p { margin: 0; }
   display: grid;
   place-items: center;
 }
-.option:hover,
-.option.picked {
+
+.option:hover {
   box-shadow: inset 0 0 0 2px var(--blue);
 }
-.option.picked { background: #F2F8FF; }
-.option.picked .letter {
-  background: var(--blue);
-  color: white;
+
+.option:active {
+  transform: scale(.985);
 }
 
-/* 로딩 */
+.option.picked {
+  box-shadow: inset 0 0 0 2px var(--blue);
+  background: #F2F8FF;
+}
+
+.option.picked .letter {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* ===============================
+   로딩 화면
+================================ */
+
 .loading {
   min-height: 60svh;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-.dots { display: flex; gap: 8px; }
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
 .dots i {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: var(--blue);
-  animation: pulse 1s infinite;
+  animation: pulse 1s infinite ease-in-out;
 }
+
 .dots i:nth-child(2) {
   animation-delay: .15s;
   background: var(--wood);
 }
-.dots i:nth-child(3) { animation-delay: .3s; }
-@keyframes pulse {
-  0%,80%,100% { transform: scale(.6); opacity: .5; }
-  40% { transform: scale(1); opacity: 1; }
+
+.dots i:nth-child(3) {
+  animation-delay: .3s;
 }
 
-/* 결과 */
+@keyframes pulse {
+  0%,80%,100% {
+    transform: scale(.6);
+    opacity: .5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===============================
+   결과 화면
+================================ */
+
 .result-hero {
   border-radius: 28px;
   padding: 28px 24px 24px;
-  color: white;
+  color: #fff;
   display: flex;
   flex-direction: column;
   gap: 14px;
   position: relative;
   overflow: hidden;
 }
+
 .result-hero.quick {
-  background: linear-gradient(160deg,var(--blue),var(--blue-deep));
+  background: linear-gradient(160deg, var(--blue) 10%, var(--blue-deep));
 }
+
 .result-hero.multi {
-  background: linear-gradient(160deg,#B27B66,var(--wood-deep));
+  background: linear-gradient(160deg, #B27B66 10%, var(--wood-deep));
 }
+
 .result-hero .big-icon {
   position: absolute;
   right: -14px;
@@ -376,46 +571,61 @@ h1, h2, h3, p { margin: 0; }
   width: 150px;
   height: 150px;
   opacity: .14;
-  color: white;
+  color: #fff;
 }
+
 .result-hero .label {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .18em;
+  opacity: .85;
 }
+
 .result-hero h1 {
   font-size: 44px;
   line-height: 1.1;
   font-weight: 900;
+  letter-spacing: -.03em;
 }
+
 .result-hero .en {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-style: italic;
   font-size: 22px;
+  margin-top: -8px;
+  opacity: .9;
 }
+
 .result-hero p {
   font-size: 15.5px;
+  line-height: 1.55;
   max-width: 28ch;
 }
+
 .chips {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
+
 .chips span {
   padding: 5px 12px;
   font-size: 13px;
+  font-weight: 500;
   border-radius: 99px;
   background: rgba(255,255,255,.18);
 }
+
+/* 결과 점수 */
 .score {
-  background: white;
+  background: var(--white);
   border-radius: 20px;
   padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
+
 .score-row {
   display: grid;
   grid-template-columns: 64px 1fr 36px;
@@ -424,34 +634,49 @@ h1, h2, h3, p { margin: 0; }
   font-size: 14px;
   font-weight: 700;
 }
+
 .bar {
   height: 10px;
   border-radius: 6px;
   background: rgba(16,36,74,.08);
   overflow: hidden;
 }
+
 .bar i {
   display: block;
   height: 100%;
   border-radius: 6px;
   width: 0;
-  transition: width .8s ease;
+  transition: width .8s cubic-bezier(.2,.8,.2,1);
 }
-.bar i.q { background: var(--blue); }
-.bar i.m { background: var(--wood); }
+
+.bar i.q {
+  background: var(--blue);
+}
+
+.bar i.m {
+  background: var(--wood);
+}
+
 .score-row output {
   text-align: right;
+  font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
 }
+
 .section-title h2 {
   font-size: 22px;
   font-weight: 900;
+  letter-spacing: -.01em;
   line-height: 1.35;
 }
-.section-title em {
+
+.section-title h2 em {
   font-style: normal;
   color: var(--blue);
 }
+
+/* 미션 */
 .missions {
   display: flex;
   flex-direction: column;
@@ -460,24 +685,30 @@ h1, h2, h3, p { margin: 0; }
   padding: 0;
   margin: 0;
 }
+
 .mission {
-  background: white;
+  background: var(--white);
   border-radius: 20px;
   padding: 18px 18px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .mission .code {
   font-size: 12px;
   font-weight: 700;
   color: var(--blue);
   letter-spacing: .14em;
 }
+
 .mission h3 {
   font-size: 21px;
   font-weight: 900;
+  letter-spacing: -.01em;
+  line-height: 1.3;
 }
+
 .for {
   width: fit-content;
   padding: 4px 12px;
@@ -485,14 +716,18 @@ h1, h2, h3, p { margin: 0; }
   font-size: 12px;
   font-weight: 700;
 }
-.for.all,.for.quick {
+
+.for.all,
+.for.quick {
   background: var(--sky);
   color: var(--blue-deep);
 }
+
 .for.multi {
   background: var(--blush);
   color: var(--wood-deep);
 }
+
 .staff {
   font-size: 14px;
   color: var(--ink-soft);
@@ -500,43 +735,67 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 20px;
   padding: 16px 18px;
 }
-.staff b { color: var(--ink); }
 
-@media (max-width:360px) {
-  .types { grid-template-columns: 1fr; }
+.staff b {
+  color: var(--ink);
 }
-@media (prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
+
+/* 반응형 */
+@media (max-width: 360px) {
+  .types {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
     animation: none !important;
     transition: none !important;
   }
 }
+
 </style>
 </head>
 
 <body>
+
 <main class="app">
 
-  <!-- 공식 로고 -->
+  <!-- =========================
+       상단 공식 로고
+  ========================== -->
+
   <header class="topbar">
+
     <img
       class="brand"
       src="./philips-logo.png"
       alt="PHILIPS 공식 로고"
-      width="116"
       decoding="async"
     >
-    <div class="event">
-      CCFK 2026<br>COEX THE PLATZ HALL
-    </div>
+
+    <img
+      class="ccfk-logo"
+      src="./ccfk-logo.png"
+      alt="CCFK Creator Commerce Festival Korea 공식 로고"
+      decoding="async"
+    >
+
   </header>
 
-  <!-- 첫 화면 -->
-  <section id="intro" class="screen">
+  <!-- =========================
+       첫 화면
+  ========================== -->
+
+  <section id="intro" class="screen" aria-labelledby="intro-title">
+
     <div class="hero-art" aria-hidden="true">
       <span class="arch"></span>
       <span class="disc"></span>
       <span class="bar"></span>
+
       <div class="tags">
         <span class="t1">#홈카페</span>
         <span class="t2">#스타일링</span>
@@ -544,40 +803,55 @@ h1, h2, h3, p { margin: 0; }
     </div>
 
     <div style="display:flex;flex-direction:column;gap:12px">
+
       <p class="eyebrow">Find your type</p>
-      <h1 class="title">
+
+      <h1 id="intro-title" class="title">
         당신은 가전을 사용할 때<br>
         <em>어떤 유형</em>의 사람입니까?
       </h1>
+
       <p class="lead">
         5가지 질문에 답하면 나의 케어 스타일을 알려드려요.
         결과에 맞는 부스 미션이 바로 열립니다.
       </p>
+
     </div>
 
     <div class="types">
+
       <div class="type-card quick">
+
         <svg viewBox="0 0 32 32" fill="none"
           stroke="currentColor" stroke-width="2.2"
-          stroke-linecap="round" aria-hidden="true">
+          stroke-linecap="round" stroke-linejoin="round"
+          aria-hidden="true">
           <circle cx="17" cy="18" r="9"/>
           <path d="M17 18v-5M14 4h6M5 12h5M3 17h4M5 22h5"/>
         </svg>
+
         <h3>퀵 케어러</h3>
         <p>짧은 시간 안에 완성도 높은 일상을 만드는 효율 추구형</p>
+
       </div>
+
       <div class="type-card multi">
+
         <svg viewBox="0 0 32 32" fill="none"
           stroke="currentColor" stroke-width="2.2"
-          stroke-linecap="round" aria-hidden="true">
+          stroke-linecap="round" stroke-linejoin="round"
+          aria-hidden="true">
           <rect x="4" y="4" width="10" height="10" rx="2"/>
           <rect x="18" y="4" width="10" height="10" rx="2"/>
           <rect x="4" y="18" width="10" height="10" rx="2"/>
           <rect x="18" y="18" width="10" height="10" rx="2"/>
         </svg>
+
         <h3>멀티 케어러</h3>
         <p>다양한 라이프스타일 니즈를 한 번에 해결하는 만능 관리형</p>
+
       </div>
+
     </div>
 
     <div class="meta">
@@ -589,63 +863,107 @@ h1, h2, h3, p { margin: 0; }
     <button id="start" class="btn" type="button">
       테스트 시작하기 →
     </button>
+
     <p class="foot">Made for the Homemakers · Since 1891</p>
+
   </section>
 
-  <!-- 질문 화면 -->
-  <section id="quiz" class="screen" hidden>
+  <!-- =========================
+       질문 화면
+  ========================== -->
+
+  <section id="quiz" class="screen" hidden aria-live="polite">
+
     <div class="quiz-head">
-      <button id="back" class="back" type="button"
-        aria-label="이전 질문">
+
+      <button id="back" class="back" type="button" aria-label="이전 질문">
         <svg viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.6">
+          stroke="currentColor" stroke-width="2.6"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M15 5l-7 7 7 7"/>
         </svg>
       </button>
+
       <div id="progress" class="progress"
-        role="progressbar" aria-valuemin="0"
-        aria-valuemax="5" aria-valuenow="0"></div>
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="5"
+        aria-valuenow="0"></div>
+
       <span id="count" class="count">1 / 5</span>
+
     </div>
+
     <div class="qnum" id="qnum">Q1</div>
+
     <h2 id="question" class="question" tabindex="-1"></h2>
+
     <div id="options" class="options"></div>
+
   </section>
 
-  <!-- 로딩 화면 -->
-  <section id="loading" class="screen loading" hidden>
-    <div class="dots"><i></i><i></i><i></i></div>
-    <p class="question">나의 유형을 분석하고 있어요</p>
-  </section>
+  <!-- =========================
+       결과 분석 화면
+  ========================== -->
 
-  <!-- 결과 화면 -->
-  <section id="result" class="screen" hidden>
-    <div id="hero" class="result-hero">
-      <svg id="bigicon" class="big-icon"
-        viewBox="0 0 32 32" fill="none"
-        stroke="currentColor" stroke-width="1.6"></svg>
-      <span class="label">YOUR TYPE</span>
-      <h1 id="result-title" tabindex="-1"></h1>
-      <span id="en" class="en"></span>
-      <p id="desc"></p>
-      <div id="chips" class="chips"></div>
+  <section id="loading" class="screen loading" hidden aria-live="polite">
+
+    <div class="dots" aria-hidden="true">
+      <i></i><i></i><i></i>
     </div>
 
-    <div class="score">
+    <p class="question">나의 유형을 분석하고 있어요</p>
+
+  </section>
+
+  <!-- =========================
+       최종 결과 화면
+  ========================== -->
+
+  <section id="result" class="screen" hidden aria-labelledby="result-title">
+
+    <div id="hero" class="result-hero">
+
+      <svg id="bigicon" class="big-icon"
+        viewBox="0 0 32 32"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        aria-hidden="true"></svg>
+
+      <span class="label">YOUR TYPE</span>
+
+      <h1 id="result-title" tabindex="-1"></h1>
+
+      <span id="en" class="en"></span>
+
+      <p id="desc"></p>
+
+      <div id="chips" class="chips"></div>
+
+    </div>
+
+    <!-- 유형별 점수 -->
+
+    <div class="score" aria-label="유형별 선택 결과">
+
       <div class="score-row">
         <span>퀵</span>
         <div class="bar"><i id="barQ" class="q"></i></div>
         <output id="numQ">0</output>
       </div>
+
       <div class="score-row">
         <span>멀티</span>
         <div class="bar"><i id="barM" class="m"></i></div>
         <output id="numM">0</output>
       </div>
+
     </div>
 
     <div class="section-title">
-      <h2>필립스와 함께<br>
+      <h2>
+        필립스와 함께<br>
         <em>미션을 시작</em>해 볼까요?
       </h2>
     </div>
@@ -660,51 +978,97 @@ h1, h2, h3, p { margin: 0; }
     <button id="retry" class="btn ghost" type="button">
       테스트 다시 하기
     </button>
+
     <p class="foot">Philips Home Living · CCFK 2026</p>
+
   </section>
+
 </main>
 
 <script>
-/* 질문과 선택지 */
+
+/* ===============================
+   테스트 질문 데이터
+================================ */
+
 const QUESTIONS = [
+
   {
     q: "바쁜 아침, 가장 먼저 찾게 되는 가전은?",
     o: [
-      { t:"quick", x:"준비 시간을 줄여주는 빠르고 간편한 제품" },
-      { t:"multi", x:"그날 필요한 여러 기능을 선택할 수 있는 제품" }
+      {
+        t: "quick",
+        x: "준비 시간을 줄여주는 빠르고 간편한 제품"
+      },
+      {
+        t: "multi",
+        x: "그날 필요한 여러 기능을 선택할 수 있는 제품"
+      }
     ]
   },
+
   {
     q: "새로운 가전제품을 구매할 때 가장 먼저 보는 것은?",
     o: [
-      { t:"multi", x:"하나의 제품을 얼마나 다양하게 활용할 수 있는지" },
-      { t:"quick", x:"원하는 결과를 얼마나 빠르고 쉽게 완성하는지" }
+      {
+        t: "multi",
+        x: "하나의 제품을 얼마나 다양하게 활용할 수 있는지"
+      },
+      {
+        t: "quick",
+        x: "원하는 결과를 얼마나 빠르고 쉽게 완성하는지"
+      }
     ]
   },
+
   {
     q: "외출 직전 옷에 주름을 발견했다면?",
     o: [
-      { t:"quick", x:"눈에 띄는 부분만 빠르게 정리하고 바로 나간다" },
-      { t:"multi", x:"옷감과 부위에 맞춰 전체적인 상태까지 꼼꼼하게 관리한다" }
+      {
+        t: "quick",
+        x: "눈에 띄는 부분만 빠르게 정리하고 바로 나간다"
+      },
+      {
+        t: "multi",
+        x: "옷감과 부위에 맞춰 전체적인 상태까지 꼼꼼하게 관리한다"
+      }
     ]
   },
+
   {
     q: "나에게 더 매력적인 가전제품은?",
     o: [
-      { t:"multi", x:"여러 상황에서 폭넓게 활용할 수 있는 제품" },
-      { t:"quick", x:"복잡한 과정 없이 바로 사용할 수 있는 제품" }
+      {
+        t: "multi",
+        x: "여러 상황에서 폭넓게 활용할 수 있는 제품"
+      },
+      {
+        t: "quick",
+        x: "복잡한 과정 없이 바로 사용할 수 있는 제품"
+      }
     ]
   },
+
   {
     q: "집에서 음료나 커피를 즐길 때 나는?",
     o: [
-      { t:"quick", x:"자주 마시는 메뉴를 빠르고 간편하게 완성한다" },
-      { t:"multi", x:"기분과 상황에 따라 메뉴와 옵션을 다양하게 바꾼다" }
+      {
+        t: "quick",
+        x: "자주 마시는 메뉴를 빠르고 간편하게 완성한다"
+      },
+      {
+        t: "multi",
+        x: "기분과 상황에 따라 메뉴와 옵션을 다양하게 바꾼다"
+      }
     ]
   }
+
 ];
 
-/* 유형별 정보와 부스 미션 */
+/* ===============================
+   유형 아이콘
+================================ */
+
 const ICON_QUICK =
   '<circle cx="17" cy="18" r="9"/>' +
   '<path d="M17 18v-5M14 4h6M5 12h5M3 17h4M5 22h5"/>';
@@ -715,13 +1079,26 @@ const ICON_MULTI =
   '<rect x="4" y="18" width="10" height="10" rx="2"/>' +
   '<rect x="18" y="18" width="10" height="10" rx="2"/>';
 
+/* ===============================
+   유형별 결과 및 미션
+================================ */
+
 const TYPES = {
+
   quick: {
+
     name: "퀵 케어러",
     en: "Quick Carer",
     icon: ICON_QUICK,
+
     desc: "짧은 시간 안에 완성도 높은 일상을 만드는 효율 추구형",
-    chips: ["#빠르게", "#간편하게", "#효율추구"],
+
+    chips: [
+      "#빠르게",
+      "#간편하게",
+      "#효율추구"
+    ],
+
     missions: [
       {
         code: "MISSION 01",
@@ -734,13 +1111,23 @@ const TYPES = {
         scope: "quick"
       }
     ]
+
   },
+
   multi: {
+
     name: "멀티 케어러",
     en: "Multi Carer",
     icon: ICON_MULTI,
+
     desc: "다양한 라이프스타일 니즈를 한 번에 해결하는 만능 관리형",
-    chips: ["#다양하게", "#한번에", "#만능관리"],
+
+    chips: [
+      "#다양하게",
+      "#한번에",
+      "#만능관리"
+    ],
+
     missions: [
       {
         code: "MISSION 01",
@@ -753,175 +1140,328 @@ const TYPES = {
         scope: "multi"
       }
     ]
+
   }
+
 };
 
+/* ===============================
+   상태 관리
+================================ */
+
 const $ = id => document.getElementById(id);
-const screens = ["intro", "quiz", "loading", "result"];
+
+const screens = [
+  "intro",
+  "quiz",
+  "loading",
+  "result"
+];
 
 let index = 0;
 let answers = [];
 let currentType = null;
 let locked = false;
 
-/* 화면 전환 */
+/* ===============================
+   화면 전환
+================================ */
+
 function show(name) {
+
   screens.forEach(s => {
     $(s).hidden = s !== name;
   });
-  window.scrollTo({ top: 0 });
-}
 
-/* 점수 계산 */
-function tally(list) {
-  const counts = { quick: 0, multi: 0 };
-  list.forEach((choice, i) => {
-    counts[QUESTIONS[i].o[choice].t]++;
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
   });
+
+}
+
+/* ===============================
+   점수 계산
+   5문항 중 3개 이상 선택된 유형
+================================ */
+
+function tally(list) {
+
+  const counts = {
+    quick: 0,
+    multi: 0
+  };
+
+  list.forEach((choice, i) => {
+    counts[QUESTIONS[i].o[choice].t] += 1;
+  });
+
   return counts;
+
 }
 
-/* 3개 이상의 답변이 속한 유형 */
 function getResult(list) {
+
   const counts = tally(list);
-  return counts.quick > counts.multi ? "quick" : "multi";
+
+  return counts.quick >= 3
+    ? "quick"
+    : "multi";
+
 }
 
-/* 질문 렌더링 */
+/* ===============================
+   질문 출력
+================================ */
+
 function renderQuestion() {
+
   const item = QUESTIONS[index];
 
   $("qnum").textContent = "Q" + (index + 1);
-  $("count").textContent = (index + 1) + " / " + QUESTIONS.length;
+
+  $("count").textContent =
+    (index + 1) + " / " + QUESTIONS.length;
+
   $("question").textContent = item.q;
 
   const progress = $("progress");
+
   progress.setAttribute("aria-valuenow", index);
-  progress.innerHTML = QUESTIONS.map((_, i) =>
-    '<i class="' + (i < index ? "done" : "") + '"></i>'
-  ).join("");
+
+  progress.innerHTML = QUESTIONS.map((_, i) => {
+
+    const className = i < index ? "done" : "";
+
+    return '<i class="' + className + '"></i>';
+
+  }).join("");
 
   const box = $("options");
+
   box.innerHTML = "";
 
   item.o.forEach((opt, i) => {
+
     const button = document.createElement("button");
+
     button.type = "button";
     button.className = "option";
+
     button.innerHTML =
-      '<span class="letter">' + "AB"[i] + '</span><span></span>';
+      '<span class="letter">' +
+      "AB"[i] +
+      '</span><span></span>';
+
     button.lastChild.textContent = opt.x;
-    button.addEventListener("click", () => choose(i, button));
+
+    button.addEventListener("click", () => {
+      choose(i, button);
+    });
+
     box.appendChild(button);
+
   });
+
 }
 
-/* 선택 처리 */
+/* ===============================
+   선택지 클릭
+================================ */
+
 function choose(choice, element) {
+
   if (locked) return;
+
   locked = true;
 
   element.classList.add("picked");
+
   answers[index] = choice;
 
   setTimeout(() => {
+
     locked = false;
 
     if (index < QUESTIONS.length - 1) {
-      index++;
+
+      index += 1;
+
       renderQuestion();
-      $("question").focus({ preventScroll:true });
+
+      $("question").focus({
+        preventScroll: true
+      });
+
     } else {
+
       finish();
+
     }
+
   }, 280);
+
 }
 
-/* 결과 분석 */
+/* ===============================
+   분석 화면
+================================ */
+
 function finish() {
+
   show("loading");
+
   setTimeout(showResult, 1300);
+
 }
 
-/* 결과 화면 */
+/* ===============================
+   결과 출력
+================================ */
+
 function showResult() {
+
   currentType = getResult(answers);
+
   const type = TYPES[currentType];
+
   const counts = tally(answers);
 
-  $("hero").className = "result-hero " + currentType;
+  $("hero").className =
+    "result-hero " + currentType;
+
   $("bigicon").innerHTML = type.icon;
+
   $("result-title").textContent = type.name;
+
   $("en").textContent = type.en;
+
   $("desc").textContent = type.desc;
 
-  $("chips").innerHTML = type.chips
-    .map(c => "<span>" + c + "</span>")
-    .join("");
+  $("chips").innerHTML = type.chips.map(c => {
+    return "<span>" + c + "</span>";
+  }).join("");
 
   $("numQ").textContent = counts.quick;
+
   $("numM").textContent = counts.multi;
+
   $("barQ").style.width = "0";
+
   $("barM").style.width = "0";
 
-  const labels = {
+  const FOR = {
     all: "퀵 케어러 · 멀티 케어러",
     quick: "퀵 케어러",
     multi: "멀티 케어러"
   };
 
   const list = $("missions");
+
   list.innerHTML = "";
 
   type.missions.forEach(m => {
+
     const li = document.createElement("li");
+
     li.className = "mission";
+
     li.innerHTML =
-      '<span class="code">' + m.code + '</span>' +
-      '<h3></h3>' +
-      '<span class="for ' + m.scope + '">' +
-      'For ' + labels[m.scope] + '</span>';
+      '<span class="code">' +
+      m.code +
+      '</span><h3></h3>' +
+      '<span class="for ' +
+      m.scope +
+      '">For ' +
+      FOR[m.scope] +
+      '</span>';
 
     li.querySelector("h3").textContent = m.name;
+
     list.appendChild(li);
+
   });
 
   show("result");
-  $("result-title").focus({ preventScroll:true });
 
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    $("barQ").style.width = counts.quick / 5 * 100 + "%";
-    $("barM").style.width = counts.multi / 5 * 100 + "%";
-  }));
+  $("result-title").focus({
+    preventScroll: true
+  });
+
+  requestAnimationFrame(() => {
+
+    requestAnimationFrame(() => {
+
+      $("barQ").style.width =
+        (counts.quick / 5 * 100) + "%";
+
+      $("barM").style.width =
+        (counts.multi / 5 * 100) + "%";
+
+    });
+
+  });
+
 }
 
-/* 시작 */
+/* ===============================
+   시작 버튼
+================================ */
+
 $("start").addEventListener("click", () => {
+
   index = 0;
   answers = [];
+
   renderQuestion();
+
   show("quiz");
-  $("question").focus({ preventScroll:true });
+
+  $("question").focus({
+    preventScroll: true
+  });
+
 });
 
-/* 뒤로 가기 */
+/* ===============================
+   이전 질문
+================================ */
+
 $("back").addEventListener("click", () => {
+
+  if (locked) return;
+
   if (index === 0) {
     show("intro");
     return;
   }
 
-  index--;
+  index -= 1;
+
   answers.length = index;
+
   renderQuestion();
+
+  $("question").focus({
+    preventScroll: true
+  });
+
 });
 
-/* 다시 하기 */
+/* ===============================
+   다시 테스트
+================================ */
+
 $("retry").addEventListener("click", () => {
+
   answers = [];
   index = 0;
+
   show("intro");
+
 });
+
 </script>
+
 </body>
 </html>
