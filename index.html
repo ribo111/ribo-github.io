@@ -64,7 +64,7 @@
 
   /* ---------- 상단 바 ---------- */
   .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .brand { font-weight: 900; font-size: 18px; letter-spacing: .14em; color: var(--blue); }
+  .brand { display: block; height: 20px; width: auto; }
   .event { font-size: 11px; font-weight: 500; letter-spacing: .08em; color: var(--ink-soft); text-align: right; }
 
   .screen[hidden] { display: none; }
@@ -76,47 +76,19 @@
   .title em { font-style: normal; color: var(--blue); }
   .lead { color: var(--ink-soft); font-size: 15px; }
 
-  /* ---------- 부스 일러스트 (우드 | 블루 | 화이트) ---------- */
-  .booth {
-    display: grid;
-    grid-template-columns: 1.3fr .5fr 1.1fr;
-    height: 224px;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 18px 36px -22px rgba(16, 36, 74, .55);
+  /* ---------- 인트로 비주얼 ---------- */
+  .hero-art {
+    position: relative; height: 150px; border-radius: 28px; overflow: hidden;
+    background: linear-gradient(135deg, #E6F0FB, #F3E4DB);
   }
-  .panel { position: relative; overflow: hidden; }
-  .panel-wood {
-    background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 2px, transparent 2px 11px),
-      linear-gradient(180deg, #B27B66, #98644F);
-  }
-  .panel-blue { background: linear-gradient(180deg, var(--blue), var(--blue-deep)); display: grid; place-items: center; }
-  .panel-blue span {
-    writing-mode: vertical-rl; transform: rotate(180deg);
-    color: #fff; font-weight: 900; font-size: 26px; letter-spacing: .12em;
-  }
-  .panel-white { background: #F2F5FA; }
-  .tag { position: absolute; top: 18px; left: 14px; right: 8px; }
-  .tag b { display: block; font-size: 19px; font-weight: 900; line-height: 1.2; }
-  .tag small { display: block; margin-top: 4px; font-size: 10.5px; font-weight: 500; opacity: .85; line-height: 1.35; }
-  .panel-wood .tag { color: #fff; }
-  .panel-white .tag b { color: var(--blue); }
-  .panel-white .tag small { color: var(--ink-soft); }
-  .table { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: var(--cream); }
-  .cup { position: absolute; bottom: 58px; width: 22px; height: 30px; border-radius: 6px 6px 8px 8px; }
-  .cup.a { left: 22px; background: #BFD78A; }
-  .cup.b { left: 56px; width: 20px; height: 38px; background: #A9BFD6; }
-  .cup.c { left: 92px; width: 26px; height: 20px; background: #E9C77B; }
-  .mirror {
-    position: absolute; bottom: 58px; left: 24px; width: 46px; height: 64px;
-    border: 4px solid #fff; border-radius: 23px 23px 4px 4px;
-    background: linear-gradient(180deg, #FFF8E6, #F6E8C8);
-    box-shadow: 0 0 22px 4px rgba(255, 240, 200, .8);
-  }
-  .shirt { position: absolute; bottom: 58px; right: 12px; width: 30px; height: 42px; background: #8FB0CF; border-radius: 6px 6px 3px 3px; }
-
-  .script { font-family: var(--font-script); font-style: italic; font-size: 20px; color: var(--wood-deep); margin-top: -8px; }
+  .hero-art .arch { position: absolute; left: 26px; bottom: 0; width: 96px; height: 118px; border-radius: 48px 48px 0 0; background: var(--blue); }
+  .hero-art .arch::after { content: ""; position: absolute; inset: 14px 14px 0; border-radius: 34px 34px 0 0; background: rgba(255,255,255,.22); }
+  .hero-art .disc { position: absolute; left: 112px; bottom: 22px; width: 66px; height: 66px; border-radius: 50%; background: var(--wood); }
+  .hero-art .bar { position: absolute; right: 24px; bottom: 0; width: 70px; height: 84px; border-radius: 18px 18px 0 0; background: #fff; box-shadow: 0 10px 24px -14px rgba(16,36,74,.5); }
+  .hero-art .tags { position: absolute; top: 16px; right: 16px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .hero-art .tags span { font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 99px; }
+  .hero-art .tags .t1 { background: var(--wood); color: #fff; }
+  .hero-art .tags .t2 { background: #fff; color: var(--blue); }
 
   /* ---------- 유형 미리보기 ---------- */
   .types { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -201,40 +173,23 @@
   .bar i.m { background: var(--wood); }
   .score-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
 
-  .section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-  .section-title h2 { font-size: 22px; font-weight: 900; letter-spacing: -.01em; }
-  .stamp-count { font-size: 13px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .section-title h2 { font-size: 22px; font-weight: 900; letter-spacing: -.01em; line-height: 1.35; }
+  .section-title h2 em { font-style: normal; color: var(--blue); }
 
   .missions { display: flex; flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
-  .mission { background: var(--white); border-radius: var(--radius); padding: 18px; display: grid; grid-template-columns: 1fr auto; gap: 6px 14px; transition: background .25s; }
-  .zone { grid-column: 1 / -1; display: inline-flex; width: fit-content; padding: 3px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
-  .zone.cafe { background: var(--blush); color: var(--wood-deep); }
-  .zone.powder { background: var(--sky); color: var(--blue-deep); }
-  .mission h3 { font-size: 17px; font-weight: 900; letter-spacing: .01em; }
-  .mission .code { font-size: 12px; font-weight: 700; color: var(--ink-soft); letter-spacing: .1em; }
-  .mission p { grid-column: 1 / -1; font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
-  .mission .prod { grid-column: 1 / -1; font-size: 12.5px; color: var(--ink); font-weight: 500; }
-  .stamp {
-    grid-row: 2 / 4; grid-column: 2; align-self: center;
-    width: 64px; height: 64px; border-radius: 50%;
-    border: 2px dashed #B9B2A3; color: #A39C8D; font-size: 11px; font-weight: 700; line-height: 1.2;
-    display: grid; place-items: center; text-align: center;
-    transition: transform .25s cubic-bezier(.3,1.6,.5,1), background .2s, color .2s, border .2s;
-  }
-  .mission.done { background: #F2F8FF; }
-  .mission.done .stamp { border: 2px solid var(--blue); background: var(--blue); color: #fff; transform: rotate(-10deg); }
+  .mission { background: var(--white); border-radius: var(--radius); padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .mission .code { font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: .14em; }
+  .mission h3 { font-size: 21px; font-weight: 900; letter-spacing: -.01em; line-height: 1.3; }
+  .for { width: fit-content; padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; }
+  .for.all { background: var(--sky); color: var(--blue-deep); }
+  .for.quick { background: var(--sky); color: var(--blue-deep); }
+  .for.multi { background: var(--blush); color: var(--wood-deep); }
 
-  .reward { border-radius: var(--radius); padding: 20px; background: var(--ink); color: #fff; display: flex; flex-direction: column; gap: 6px; }
-  .reward b { font-size: 18px; font-weight: 900; }
-  .reward p { font-size: 14px; opacity: .85; }
-  .reward.ready { background: var(--blue); }
-
-  .share { font-size: 13.5px; color: var(--ink-soft); background: rgba(16,36,74,.05); border-radius: var(--radius); padding: 16px 18px; }
-  .share b { color: var(--ink); }
+  .staff { font-size: 14px; color: var(--ink-soft); background: rgba(16,36,74,.05); border-radius: var(--radius); padding: 16px 18px; }
+  .staff b { color: var(--ink); }
 
   @media (max-width: 360px) {
     .types { grid-template-columns: 1fr; }
-    .booth { height: 200px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -245,24 +200,15 @@
 <body>
 <main class="app">
   <header class="topbar">
-    <div class="brand">PHILIPS</div>
-    <div class="event">CCFK 2026 · TYPE TEST<br>COEX THE PLATZ HALL</div>
+    <img class="brand" src="philips-logo.png" alt="PHILIPS" width="108" height="20">
+    <div class="event">CCFK 2026<br>COEX THE PLATZ HALL</div>
   </header>
 
   <!-- 1. 인트로 -->
   <section id="intro" class="screen" aria-labelledby="intro-title">
-    <div class="booth" aria-hidden="true">
-      <div class="panel panel-wood">
-        <div class="tag"><b>#홈카페</b><small>Real Espresso,<br>Made simple</small></div>
-        <span class="cup a"></span><span class="cup b"></span><span class="cup c"></span>
-        <div class="table"></div>
-      </div>
-      <div class="panel panel-blue"><span>PHILIPS</span></div>
-      <div class="panel panel-white">
-        <div class="tag"><b>#스타일링</b><small>Get Ready<br>With Me</small></div>
-        <span class="mirror"></span><span class="shirt"></span>
-        <div class="table"></div>
-      </div>
+    <div class="hero-art" aria-hidden="true">
+      <span class="arch"></span><span class="disc"></span><span class="bar"></span>
+      <div class="tags"><span class="t1">#홈카페</span><span class="t2">#스타일링</span></div>
     </div>
 
     <div style="display:flex;flex-direction:column;gap:12px">
@@ -284,7 +230,7 @@
       </div>
     </div>
 
-    <div class="meta"><span>질문 5개</span><span>약 1분</span><span>결과별 미션 3개</span></div>
+    <div class="meta"><span>질문 5개</span><span>약 1분</span><span>유형별 미션</span></div>
     <button id="start" class="btn" type="button">테스트 시작하기
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
@@ -327,21 +273,12 @@
       <div class="score-row"><span>멀티</span><div class="bar"><i id="barM" class="m"></i></div><output id="numM">0</output></div>
     </div>
 
-    <div>
-      <div class="section-title">
-        <h2>나의 부스 미션</h2>
-        <span id="stampCount" class="stamp-count">0 / 3</span>
-      </div>
-      <p class="lead" style="margin-top:4px">홈 카페 존과 파우더룸 존을 돌며 미션을 완료하고 스탬프를 모아보세요.</p>
+    <div class="section-title">
+      <h2>필립스와 함께<br><em>미션을 시작</em>해 볼까요?</h2>
     </div>
     <ol id="missions" class="missions"></ol>
 
-    <div id="reward" class="reward">
-      <b id="rewardTitle">미션 3개를 모두 완료하면 리워드!</b>
-      <p id="rewardText">스태프에게 이 화면을 보여주고 바리스타 스티커를 받으세요.</p>
-    </div>
-
-    <p class="share"><b>콘텐츠로 남겨보세요.</b> 체험한 사진과 영상을 SNS에 공유하고 리워드 링크를 받으면 현장 리워드를 받을 수 있어요.</p>
+    <p class="staff"><b>미션 시작 전,</b> 부스 스태프에게 이 화면을 보여주세요.</p>
 
     <button id="retry" class="btn ghost" type="button">테스트 다시 하기</button>
     <p class="foot">Philips Home Living · CCFK 2026</p>
@@ -378,15 +315,8 @@
       desc: "짧은 시간 안에 완성도 높은 일상을 만드는 효율 추구형",
       chips: ["#빠르게", "#간편하게", "#효율추구"],
       missions: [
-        { code: "MISSION 01", name: "GUESS THE PROCESS", zone: "cafe", zoneName: "홈 카페 존",
-          text: "커피가 만들어질 순서를 GRIND → TAMP → BREW 카드로 먼저 맞혀 보세요. 실제 작동으로 정답을 확인합니다.",
-          prod: "바리스타나 플러스 BAR500" },
-        { code: "MISSION 02", name: "WHAT'S NEXT?", zone: "cafe", zoneName: "홈 카페 존",
-          text: "작동 전 Before 이미지를 보고, 정해진 횟수만큼 돌린 결과를 A / B / C 중에서 예상해 보세요.",
-          prod: "초퍼 HR1501" },
-        { code: "MISSION 03", name: "WRINKLE SPEEDRUN", zone: "powder", zoneName: "파우더룸 존",
-          text: "제한 시간 안에 구김을 최대한 깔끔하게 펴고, Before & After를 비교해 보세요.",
-          prod: "원턴 다리미 GC213" }
+        { code: "MISSION 01", name: "바리스티나 꾸미기의 달인", scope: "all" },
+        { code: "MISSION 02", name: "순흡착 챌린지", scope: "quick" }
       ]
     },
     multi: {
@@ -394,15 +324,8 @@
       desc: "다양한 라이프스타일 니즈를 한 번에 해결하는 만능 관리형",
       chips: ["#다양하게", "#한번에", "#만능관리"],
       missions: [
-        { code: "MISSION 01", name: "GUESS THE PROCESS", zone: "cafe", zoneName: "홈 카페 존",
-          text: "커피가 만들어질 순서를 GRIND → TAMP → BREW 카드로 먼저 맞혀 보세요. 실제 작동으로 정답을 확인합니다.",
-          prod: "바리스타나 플러스 BAR500" },
-        { code: "MISSION 02", name: "BUILD YOUR MORNING", zone: "cafe", zoneName: "홈 카페 존",
-          text: "아침 상황 카드를 뽑고, 제한 시간 안에 필요한 Philips 제품 2개를 골라 나만의 모닝 세트를 완성하세요.",
-          prod: "바리스타나 플러스 + 계란찜기 HD9137" },
-        { code: "MISSION 03", name: "OUTFIT SOS", zone: "powder", zoneName: "파우더룸 존",
-          text: "SOS 상황 카드를 뽑고, 원턴 다리미로 제한 시간 안에 구김을 정리해 보세요.",
-          prod: "원턴 다리미 GC213" }
+        { code: "MISSION 01", name: "바리스티나 꾸미기의 달인", scope: "all" },
+        { code: "MISSION 02", name: "극과 극 흡착 챌린지", scope: "multi" }
       ]
     }
   };
@@ -413,7 +336,6 @@
   let index = 0;
   let answers = []; // 각 문항에서 고른 선택지 번호 (0 = A, 1 = B)
   let currentType = null;
-  let stamps = [false, false, false];
 
   function show(name) {
     screens.forEach((s) => { $(s).hidden = s !== name; });
@@ -478,21 +400,10 @@
   }
 
   /* ---------- 결과 ---------- */
-  function storeKey() { return "philips-ccfk-stamps-" + currentType; }
-  function loadStamps() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(storeKey()) || "null");
-      if (Array.isArray(saved) && saved.length === 3) return saved.map(Boolean);
-    } catch (e) {}
-    return [false, false, false];
-  }
-  function saveStamps() { try { localStorage.setItem(storeKey(), JSON.stringify(stamps)); } catch (e) {} }
-
   function showResult() {
     currentType = getResult(answers);
     const type = TYPES[currentType];
     const counts = tally(answers);
-    stamps = loadStamps();
 
     $("hero").className = "result-hero " + currentType;
     $("bigicon").innerHTML = type.icon;
@@ -506,21 +417,17 @@
     $("barQ").style.width = "0";
     $("barM").style.width = "0";
 
+    const FOR = { all: "퀵 케어러 · 멀티 케어러", quick: "퀵 케어러", multi: "멀티 케어러" };
     const list = $("missions");
     list.innerHTML = "";
-    type.missions.forEach((m, i) => {
+    type.missions.forEach((m) => {
       const li = document.createElement("li");
       li.className = "mission";
-      li.innerHTML =
-        '<span class="zone ' + m.zone + '">' + m.zoneName + "</span>" +
-        "<div><div class=\"code\">" + m.code + "</div><h3>" + m.name + "</h3></div>" +
-        '<button type="button" class="stamp" aria-pressed="false"></button>' +
-        "<p>" + m.text + "</p>" +
-        '<p class="prod">체험 제품 · ' + m.prod + "</p>";
-      li.querySelector(".stamp").addEventListener("click", () => { stamps[i] = !stamps[i]; saveStamps(); paintStamps(); });
+      li.innerHTML = '<span class="code">' + m.code + "</span><h3></h3>" +
+        '<span class="for ' + m.scope + '">For ' + FOR[m.scope] + "</span>";
+      li.querySelector("h3").textContent = m.name;
       list.appendChild(li);
     });
-    paintStamps();
 
     show("result");
     $("result-title").focus({ preventScroll: true });
@@ -528,24 +435,6 @@
       $("barQ").style.width = (counts.quick / 5 * 100) + "%";
       $("barM").style.width = (counts.multi / 5 * 100) + "%";
     }));
-  }
-
-  function paintStamps() {
-    const done = stamps.filter(Boolean).length;
-    $("stampCount").textContent = done + " / 3 스탬프";
-    document.querySelectorAll(".mission").forEach((li, i) => {
-      li.classList.toggle("done", stamps[i]);
-      const s = li.querySelector(".stamp");
-      s.textContent = stamps[i] ? "완료!" : "탭해서 완료";
-      s.setAttribute("aria-pressed", String(stamps[i]));
-      s.setAttribute("aria-label", TYPES[currentType].missions[i].name + (stamps[i] ? " 완료됨" : " 완료로 표시"));
-    });
-    const all = done === 3;
-    $("reward").classList.toggle("ready", all);
-    $("rewardTitle").textContent = all ? "모든 미션을 완료했어요!" : "미션 3개를 모두 완료하면 리워드!";
-    $("rewardText").textContent = all
-      ? "이 화면을 스태프에게 보여주고 바리스타 스티커 리워드를 받으세요."
-      : "완료 후 스태프에게 이 화면을 보여주고 바리스타 스티커를 받으세요.";
   }
 
   /* ---------- 이벤트 ---------- */
