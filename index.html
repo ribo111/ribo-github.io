@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A5FD0">
-
 <title>PHILIPS | 나의 가전 사용 유형 테스트</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,11 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <style>
-
-/* ===============================
-   기본 색상 및 설정
-================================ */
-
+/* ==============================
+   기본 설정
+============================== */
 :root {
   --blue: #0A5FD0;
   --blue-deep: #0644A0;
@@ -68,36 +65,39 @@ h1, h2, h3, p {
   outline-offset: 3px;
 }
 
-/* ===============================
+/* ==============================
    전체 페이지
-================================ */
-
+============================== */
 .app {
   max-width: 520px;
   min-height: 100svh;
   margin: 0 auto;
 
-  padding-top: max(20px, env(safe-area-inset-top));
-  padding-bottom: max(32px, env(safe-area-inset-bottom));
+  /* 상단 여백 축소 */
+  padding-top: max(8px, env(safe-area-inset-top, 0px));
+  padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
   padding-left: 20px;
   padding-right: 20px;
 
   display: flex;
   flex-direction: column;
-  gap: 24px;
+
+  /* 기본 로고와 콘텐츠 간격 축소 */
+  gap: 10px;
 }
 
-/* ===============================
+/* ==============================
    상단 로고 영역
-================================ */
-
+============================== */
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
-  min-height: 58px;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 /* PHILIPS 공식 로고 */
@@ -118,13 +118,20 @@ h1, h2, h3, p {
   height: auto;
   object-fit: contain;
   flex-shrink: 1;
+
+  /* CCFK 로고 아래로 9px */
+  transform: translateY(9px);
+}
+
+/* 첫 화면 비주얼과 헤더 간격 */
+.topbar + .screen:not([hidden]) {
+  margin-top: 0;
 }
 
 /* 작은 모바일 화면 */
 @media (max-width: 380px) {
   .topbar {
-    gap: 10px;
-    min-height: 48px;
+    gap: 8px;
   }
 
   .brand {
@@ -133,13 +140,13 @@ h1, h2, h3, p {
 
   .ccfk-logo {
     width: 145px;
+    transform: translateY(7px);
   }
 }
 
-/* ===============================
+/* ==============================
    화면 전환
-================================ */
-
+============================== */
 .screen[hidden] {
   display: none;
 }
@@ -156,7 +163,6 @@ h1, h2, h3, p {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: none;
@@ -188,10 +194,9 @@ h1, h2, h3, p {
   font-size: 15px;
 }
 
-/* ===============================
+/* ==============================
    메인 비주얼
-================================ */
-
+============================== */
 .hero-art {
   position: relative;
   height: 150px;
@@ -266,10 +271,9 @@ h1, h2, h3, p {
   color: var(--blue);
 }
 
-/* ===============================
+/* ==============================
    유형 소개 카드
-================================ */
-
+============================== */
 .types {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -330,10 +334,9 @@ h1, h2, h3, p {
   background: rgba(16,36,74,.06);
 }
 
-/* ===============================
+/* ==============================
    버튼
-================================ */
-
+============================== */
 .btn {
   display: flex;
   align-items: center;
@@ -376,10 +379,9 @@ h1, h2, h3, p {
   text-align: center;
 }
 
-/* ===============================
+/* ==============================
    질문 화면
-================================ */
-
+============================== */
 .quiz-head {
   display: flex;
   align-items: center;
@@ -393,8 +395,8 @@ h1, h2, h3, p {
   background: var(--white);
   display: grid;
   place-items: center;
-  flex: none;
   box-shadow: 0 2px 8px rgba(16,36,74,.12);
+  flex: none;
 }
 
 .back svg {
@@ -497,10 +499,9 @@ h1, h2, h3, p {
   color: #fff;
 }
 
-/* ===============================
-   로딩 화면
-================================ */
-
+/* ==============================
+   분석 화면
+============================== */
 .loading {
   min-height: 60svh;
   align-items: center;
@@ -541,10 +542,9 @@ h1, h2, h3, p {
   }
 }
 
-/* ===============================
+/* ==============================
    결과 화면
-================================ */
-
+============================== */
 .result-hero {
   border-radius: 28px;
   padding: 28px 24px 24px;
@@ -616,7 +616,7 @@ h1, h2, h3, p {
   background: rgba(255,255,255,.18);
 }
 
-/* 결과 점수 */
+/* 점수 */
 .score {
   background: var(--white);
   border-radius: 20px;
@@ -667,7 +667,6 @@ h1, h2, h3, p {
 .section-title h2 {
   font-size: 22px;
   font-weight: 900;
-  letter-spacing: -.01em;
   line-height: 1.35;
 }
 
@@ -676,7 +675,7 @@ h1, h2, h3, p {
   color: var(--blue);
 }
 
-/* 미션 */
+/* 미션 카드 */
 .missions {
   display: flex;
   flex-direction: column;
@@ -705,7 +704,6 @@ h1, h2, h3, p {
 .mission h3 {
   font-size: 21px;
   font-weight: 900;
-  letter-spacing: -.01em;
   line-height: 1.3;
 }
 
@@ -740,7 +738,9 @@ h1, h2, h3, p {
   color: var(--ink);
 }
 
-/* 반응형 */
+/* ==============================
+   반응형
+============================== */
 @media (max-width: 360px) {
   .types {
     grid-template-columns: 1fr;
@@ -760,35 +760,24 @@ h1, h2, h3, p {
 </head>
 
 <body>
-
 <main class="app">
 
-  <!-- =========================
-       상단 공식 로고
-  ========================== -->
-
+  <!-- 상단 공식 로고 -->
   <header class="topbar">
-
     <img
       class="brand"
       src="./philips-logo.png"
       alt="PHILIPS 공식 로고"
-      decoding="async"
     >
 
     <img
       class="ccfk-logo"
       src="./ccfk-logo.png"
-      alt="CCFK Creator Commerce Festival Korea 공식 로고"
-      decoding="async"
+      alt="CCFK 공식 로고"
     >
-
   </header>
 
-  <!-- =========================
-       첫 화면
-  ========================== -->
-
+  <!-- 첫 화면 -->
   <section id="intro" class="screen" aria-labelledby="intro-title">
 
     <div class="hero-art" aria-hidden="true">
@@ -815,13 +804,11 @@ h1, h2, h3, p {
         5가지 질문에 답하면 나의 케어 스타일을 알려드려요.
         결과에 맞는 부스 미션이 바로 열립니다.
       </p>
-
     </div>
 
     <div class="types">
 
       <div class="type-card quick">
-
         <svg viewBox="0 0 32 32" fill="none"
           stroke="currentColor" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round"
@@ -832,11 +819,9 @@ h1, h2, h3, p {
 
         <h3>퀵 케어러</h3>
         <p>짧은 시간 안에 완성도 높은 일상을 만드는 효율 추구형</p>
-
       </div>
 
       <div class="type-card multi">
-
         <svg viewBox="0 0 32 32" fill="none"
           stroke="currentColor" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round"
@@ -849,7 +834,6 @@ h1, h2, h3, p {
 
         <h3>멀티 케어러</h3>
         <p>다양한 라이프스타일 니즈를 한 번에 해결하는 만능 관리형</p>
-
       </div>
 
     </div>
@@ -865,17 +849,12 @@ h1, h2, h3, p {
     </button>
 
     <p class="foot">Made for the Homemakers · Since 1891</p>
-
   </section>
 
-  <!-- =========================
-       질문 화면
-  ========================== -->
-
+  <!-- 질문 화면 -->
   <section id="quiz" class="screen" hidden aria-live="polite">
 
     <div class="quiz-head">
-
       <button id="back" class="back" type="button" aria-label="이전 질문">
         <svg viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2.6"
@@ -891,35 +870,22 @@ h1, h2, h3, p {
         aria-valuenow="0"></div>
 
       <span id="count" class="count">1 / 5</span>
-
     </div>
 
     <div class="qnum" id="qnum">Q1</div>
-
     <h2 id="question" class="question" tabindex="-1"></h2>
-
     <div id="options" class="options"></div>
-
   </section>
 
-  <!-- =========================
-       결과 분석 화면
-  ========================== -->
-
+  <!-- 분석 중 -->
   <section id="loading" class="screen loading" hidden aria-live="polite">
-
     <div class="dots" aria-hidden="true">
       <i></i><i></i><i></i>
     </div>
-
     <p class="question">나의 유형을 분석하고 있어요</p>
-
   </section>
 
-  <!-- =========================
-       최종 결과 화면
-  ========================== -->
-
+  <!-- 결과 화면 -->
   <section id="result" class="screen" hidden aria-labelledby="result-title">
 
     <div id="hero" class="result-hero">
@@ -932,21 +898,13 @@ h1, h2, h3, p {
         aria-hidden="true"></svg>
 
       <span class="label">YOUR TYPE</span>
-
       <h1 id="result-title" tabindex="-1"></h1>
-
       <span id="en" class="en"></span>
-
       <p id="desc"></p>
-
       <div id="chips" class="chips"></div>
-
     </div>
 
-    <!-- 유형별 점수 -->
-
     <div class="score" aria-label="유형별 선택 결과">
-
       <div class="score-row">
         <span>퀵</span>
         <div class="bar"><i id="barQ" class="q"></i></div>
@@ -958,7 +916,6 @@ h1, h2, h3, p {
         <div class="bar"><i id="barM" class="m"></i></div>
         <output id="numM">0</output>
       </div>
-
     </div>
 
     <div class="section-title">
@@ -980,94 +937,57 @@ h1, h2, h3, p {
     </button>
 
     <p class="foot">Philips Home Living · CCFK 2026</p>
-
   </section>
 
 </main>
 
 <script>
 
-/* ===============================
-   테스트 질문 데이터
-================================ */
+/* ==============================
+   5개 질문과 유형 매칭
+============================== */
 
 const QUESTIONS = [
-
   {
     q: "바쁜 아침, 가장 먼저 찾게 되는 가전은?",
     o: [
-      {
-        t: "quick",
-        x: "준비 시간을 줄여주는 빠르고 간편한 제품"
-      },
-      {
-        t: "multi",
-        x: "그날 필요한 여러 기능을 선택할 수 있는 제품"
-      }
+      {t:"quick", x:"준비 시간을 줄여주는 빠르고 간편한 제품"},
+      {t:"multi", x:"그날 필요한 여러 기능을 선택할 수 있는 제품"}
     ]
   },
-
   {
     q: "새로운 가전제품을 구매할 때 가장 먼저 보는 것은?",
     o: [
-      {
-        t: "multi",
-        x: "하나의 제품을 얼마나 다양하게 활용할 수 있는지"
-      },
-      {
-        t: "quick",
-        x: "원하는 결과를 얼마나 빠르고 쉽게 완성하는지"
-      }
+      {t:"multi", x:"하나의 제품을 얼마나 다양하게 활용할 수 있는지"},
+      {t:"quick", x:"원하는 결과를 얼마나 빠르고 쉽게 완성하는지"}
     ]
   },
-
   {
     q: "외출 직전 옷에 주름을 발견했다면?",
     o: [
-      {
-        t: "quick",
-        x: "눈에 띄는 부분만 빠르게 정리하고 바로 나간다"
-      },
-      {
-        t: "multi",
-        x: "옷감과 부위에 맞춰 전체적인 상태까지 꼼꼼하게 관리한다"
-      }
+      {t:"quick", x:"눈에 띄는 부분만 빠르게 정리하고 바로 나간다"},
+      {t:"multi", x:"옷감과 부위에 맞춰 전체적인 상태까지 꼼꼼하게 관리한다"}
     ]
   },
-
   {
     q: "나에게 더 매력적인 가전제품은?",
     o: [
-      {
-        t: "multi",
-        x: "여러 상황에서 폭넓게 활용할 수 있는 제품"
-      },
-      {
-        t: "quick",
-        x: "복잡한 과정 없이 바로 사용할 수 있는 제품"
-      }
+      {t:"multi", x:"여러 상황에서 폭넓게 활용할 수 있는 제품"},
+      {t:"quick", x:"복잡한 과정 없이 바로 사용할 수 있는 제품"}
     ]
   },
-
   {
     q: "집에서 음료나 커피를 즐길 때 나는?",
     o: [
-      {
-        t: "quick",
-        x: "자주 마시는 메뉴를 빠르고 간편하게 완성한다"
-      },
-      {
-        t: "multi",
-        x: "기분과 상황에 따라 메뉴와 옵션을 다양하게 바꾼다"
-      }
+      {t:"quick", x:"자주 마시는 메뉴를 빠르고 간편하게 완성한다"},
+      {t:"multi", x:"기분과 상황에 따라 메뉴와 옵션을 다양하게 바꾼다"}
     ]
   }
-
 ];
 
-/* ===============================
-   유형 아이콘
-================================ */
+/* ==============================
+   결과 유형 데이터
+============================== */
 
 const ICON_QUICK =
   '<circle cx="17" cy="18" r="9"/>' +
@@ -1079,26 +999,13 @@ const ICON_MULTI =
   '<rect x="4" y="18" width="10" height="10" rx="2"/>' +
   '<rect x="18" y="18" width="10" height="10" rx="2"/>';
 
-/* ===============================
-   유형별 결과 및 미션
-================================ */
-
 const TYPES = {
-
   quick: {
-
     name: "퀵 케어러",
     en: "Quick Carer",
     icon: ICON_QUICK,
-
     desc: "짧은 시간 안에 완성도 높은 일상을 만드는 효율 추구형",
-
-    chips: [
-      "#빠르게",
-      "#간편하게",
-      "#효율추구"
-    ],
-
+    chips: ["#빠르게", "#간편하게", "#효율추구"],
     missions: [
       {
         code: "MISSION 01",
@@ -1111,23 +1018,14 @@ const TYPES = {
         scope: "quick"
       }
     ]
-
   },
 
   multi: {
-
     name: "멀티 케어러",
     en: "Multi Carer",
     icon: ICON_MULTI,
-
     desc: "다양한 라이프스타일 니즈를 한 번에 해결하는 만능 관리형",
-
-    chips: [
-      "#다양하게",
-      "#한번에",
-      "#만능관리"
-    ],
-
+    chips: ["#다양하게", "#한번에", "#만능관리"],
     missions: [
       {
         code: "MISSION 01",
@@ -1140,214 +1038,147 @@ const TYPES = {
         scope: "multi"
       }
     ]
-
   }
-
 };
 
-/* ===============================
+/* ==============================
    상태 관리
-================================ */
+============================== */
 
 const $ = id => document.getElementById(id);
 
-const screens = [
-  "intro",
-  "quiz",
-  "loading",
-  "result"
-];
+const screens = ["intro", "quiz", "loading", "result"];
 
 let index = 0;
 let answers = [];
 let currentType = null;
 let locked = false;
 
-/* ===============================
+/* ==============================
    화면 전환
-================================ */
+============================== */
 
 function show(name) {
-
   screens.forEach(s => {
     $(s).hidden = s !== name;
   });
 
-  window.scrollTo({
-    top: 0,
-    behavior: "instant"
-  });
-
+  window.scrollTo(0, 0);
 }
 
-/* ===============================
-   점수 계산
-   5문항 중 3개 이상 선택된 유형
-================================ */
+/* ==============================
+   결과 점수 계산
+============================== */
 
 function tally(list) {
-
-  const counts = {
-    quick: 0,
-    multi: 0
-  };
+  const counts = {quick: 0, multi: 0};
 
   list.forEach((choice, i) => {
     counts[QUESTIONS[i].o[choice].t] += 1;
   });
 
   return counts;
-
 }
 
 function getResult(list) {
-
   const counts = tally(list);
 
-  return counts.quick >= 3
-    ? "quick"
-    : "multi";
-
+  return counts.quick >= 3 ? "quick" : "multi";
 }
 
-/* ===============================
-   질문 출력
-================================ */
+/* ==============================
+   질문 표시
+============================== */
 
 function renderQuestion() {
-
   const item = QUESTIONS[index];
 
   $("qnum").textContent = "Q" + (index + 1);
-
-  $("count").textContent =
-    (index + 1) + " / " + QUESTIONS.length;
-
+  $("count").textContent = (index + 1) + " / " + QUESTIONS.length;
   $("question").textContent = item.q;
 
   const progress = $("progress");
-
   progress.setAttribute("aria-valuenow", index);
 
-  progress.innerHTML = QUESTIONS.map((_, i) => {
-
-    const className = i < index ? "done" : "";
-
-    return '<i class="' + className + '"></i>';
-
-  }).join("");
+  progress.innerHTML = QUESTIONS.map((_, i) =>
+    '<i class="' + (i < index ? "done" : "") + '"></i>'
+  ).join("");
 
   const box = $("options");
-
   box.innerHTML = "";
 
   item.o.forEach((opt, i) => {
-
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "option";
 
     button.innerHTML =
-      '<span class="letter">' +
-      "AB"[i] +
-      '</span><span></span>';
+      '<span class="letter">' + "AB"[i] + '</span><span></span>';
 
     button.lastChild.textContent = opt.x;
 
-    button.addEventListener("click", () => {
-      choose(i, button);
-    });
-
+    button.addEventListener("click", () => choose(i, button));
     box.appendChild(button);
-
   });
-
 }
 
-/* ===============================
-   선택지 클릭
-================================ */
+/* ==============================
+   답변 선택
+============================== */
 
 function choose(choice, element) {
-
   if (locked) return;
-
   locked = true;
 
   element.classList.add("picked");
-
   answers[index] = choice;
 
   setTimeout(() => {
-
     locked = false;
 
     if (index < QUESTIONS.length - 1) {
-
-      index += 1;
-
+      index++;
       renderQuestion();
-
-      $("question").focus({
-        preventScroll: true
-      });
-
+      $("question").focus({preventScroll: true});
     } else {
-
       finish();
-
     }
-
   }, 280);
-
 }
 
-/* ===============================
-   분석 화면
-================================ */
+/* ==============================
+   분석
+============================== */
 
 function finish() {
-
   show("loading");
-
   setTimeout(showResult, 1300);
-
 }
 
-/* ===============================
-   결과 출력
-================================ */
+/* ==============================
+   결과 화면
+============================== */
 
 function showResult() {
-
   currentType = getResult(answers);
 
   const type = TYPES[currentType];
-
   const counts = tally(answers);
 
-  $("hero").className =
-    "result-hero " + currentType;
-
+  $("hero").className = "result-hero " + currentType;
   $("bigicon").innerHTML = type.icon;
-
   $("result-title").textContent = type.name;
-
   $("en").textContent = type.en;
-
   $("desc").textContent = type.desc;
 
-  $("chips").innerHTML = type.chips.map(c => {
-    return "<span>" + c + "</span>";
-  }).join("");
+  $("chips").innerHTML = type.chips.map(c =>
+    "<span>" + c + "</span>"
+  ).join("");
 
   $("numQ").textContent = counts.quick;
-
   $("numM").textContent = counts.multi;
 
   $("barQ").style.width = "0";
-
   $("barM").style.width = "0";
 
   const FOR = {
@@ -1357,78 +1188,50 @@ function showResult() {
   };
 
   const list = $("missions");
-
   list.innerHTML = "";
 
   type.missions.forEach(m => {
-
     const li = document.createElement("li");
 
     li.className = "mission";
 
     li.innerHTML =
-      '<span class="code">' +
-      m.code +
-      '</span><h3></h3>' +
-      '<span class="for ' +
-      m.scope +
-      '">For ' +
-      FOR[m.scope] +
-      '</span>';
+      '<span class="code">' + m.code + '</span>' +
+      '<h3></h3>' +
+      '<span class="for ' + m.scope + '">' +
+      'For ' + FOR[m.scope] + '</span>';
 
     li.querySelector("h3").textContent = m.name;
-
     list.appendChild(li);
-
   });
 
   show("result");
+  $("result-title").focus({preventScroll: true});
 
-  $("result-title").focus({
-    preventScroll: true
-  });
-
-  requestAnimationFrame(() => {
-
-    requestAnimationFrame(() => {
-
-      $("barQ").style.width =
-        (counts.quick / 5 * 100) + "%";
-
-      $("barM").style.width =
-        (counts.multi / 5 * 100) + "%";
-
-    });
-
-  });
-
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    $("barQ").style.width = counts.quick / 5 * 100 + "%";
+    $("barM").style.width = counts.multi / 5 * 100 + "%";
+  }));
 }
 
-/* ===============================
+/* ==============================
    시작 버튼
-================================ */
+============================== */
 
 $("start").addEventListener("click", () => {
-
   index = 0;
   answers = [];
 
   renderQuestion();
-
   show("quiz");
-
-  $("question").focus({
-    preventScroll: true
-  });
-
+  $("question").focus({preventScroll: true});
 });
 
-/* ===============================
+/* ==============================
    이전 질문
-================================ */
+============================== */
 
 $("back").addEventListener("click", () => {
-
   if (locked) return;
 
   if (index === 0) {
@@ -1436,32 +1239,23 @@ $("back").addEventListener("click", () => {
     return;
   }
 
-  index -= 1;
-
+  index--;
   answers.length = index;
 
   renderQuestion();
-
-  $("question").focus({
-    preventScroll: true
-  });
-
+  $("question").focus({preventScroll: true});
 });
 
-/* ===============================
-   다시 테스트
-================================ */
+/* ==============================
+   다시 시작
+============================== */
 
 $("retry").addEventListener("click", () => {
-
   answers = [];
   index = 0;
-
   show("intro");
-
 });
 
 </script>
-
 </body>
 </html>
