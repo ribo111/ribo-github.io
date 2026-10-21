@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A5FD0">
+<title>PHILIPS | 나의 가전 사용 유형 테스트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+
+<style>
+  /* 부스 톤앤매너
+     - 홈카페 존: 우드 패널 + 크림 테이블
+     - 스타일링 존: 화이트 월 + 필립스 블루 패널
+     - 리플렛: 연한 스카이 / 크림 카드, 큼직한 숫자 */
+  :root {
+    --blue: #0A5FD0;
+    --blue-deep: #0644A0;
+    --sky: #DCEBFA;
+    --wood: #A8715C;
+    --wood-deep: #8A5644;
+    --blush: #F3E4DB;
+    --cream: #F7F1E6;
+    --white: #FFFFFF;
+    --ink: #10244A;
+    --ink-soft: #55627D;
+    --line: #DAD3C6;
+
+    --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --font-script: "Cormorant Garamond", Georgia, serif;
+
+    --radius: 20px;
+    --gutter: max(20px, env(safe-area-inset-left, 0px));
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    word-break: keep-all;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+  h1, h2, h3, p { margin: 0; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+  .app {
+    max-width: 520px;
+    min-height: 100svh;
+    margin: 0 auto;
+    padding-block: max(16px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-bottom, 0px));
+    padding-left: var(--gutter);
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ---------- 상단 바 ---------- */
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { font-weight: 900; font-size: 18px; letter-spacing: .14em; color: var(--blue); }
+  .event { font-size: 11px; font-weight: 500; letter-spacing: .08em; color: var(--ink-soft); text-align: right; }
+
+  .screen[hidden] { display: none; }
+  .screen { display: flex; flex-direction: column; gap: 24px; animation: rise .45s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); }
+  .title { font-size: clamp(28px, 8.4vw, 38px); line-height: 1.28; font-weight: 900; letter-spacing: -.02em; text-wrap: balance; }
+  .title em { font-style: normal; color: var(--blue); }
+  .lead { color: var(--ink-soft); font-size: 15px; }
+
+  /* ---------- 부스 일러스트 (우드 | 블루 | 화이트) ---------- */
+  .booth {
+    display: grid;
+    grid-template-columns: 1.3fr .5fr 1.1fr;
+    height: 224px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 18px 36px -22px rgba(16, 36, 74, .55);
+  }
+  .panel { position: relative; overflow: hidden; }
+  .panel-wood {
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 2px, transparent 2px 11px),
+      linear-gradient(180deg, #B27B66, #98644F);
+  }
+  .panel-blue { background: linear-gradient(180deg, var(--blue), var(--blue-deep)); display: grid; place-items: center; }
+  .panel-blue span {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    color: #fff; font-weight: 900; font-size: 26px; letter-spacing: .12em;
+  }
+  .panel-white { background: #F2F5FA; }
+  .tag { position: absolute; top: 18px; left: 14px; right: 8px; }
+  .tag b { display: block; font-size: 19px; font-weight: 900; line-height: 1.2; }
+  .tag small { display: block; margin-top: 4px; font-size: 10.5px; font-weight: 500; opacity: .85; line-height: 1.35; }
+  .panel-wood .tag { color: #fff; }
+  .panel-white .tag b { color: var(--blue); }
+  .panel-white .tag small { color: var(--ink-soft); }
+  .table { position: absolute; left: 0; right: 0; bottom: 0; height: 58px; background: var(--cream); }
+  .cup { position: absolute; bottom: 58px; width: 22px; height: 30px; border-radius: 6px 6px 8px 8px; }
+  .cup.a { left: 22px; background: #BFD78A; }
+  .cup.b { left: 56px; width: 20px; height: 38px; background: #A9BFD6; }
+  .cup.c { left: 92px; width: 26px; height: 20px; background: #E9C77B; }
+  .mirror {
+    position: absolute; bottom: 58px; left: 24px; width: 46px; height: 64px;
+    border: 4px solid #fff; border-radius: 23px 23px 4px 4px;
+    background: linear-gradient(180deg, #FFF8E6, #F6E8C8);
+    box-shadow: 0 0 22px 4px rgba(255, 240, 200, .8);
+  }
+  .shirt { position: absolute; bottom: 58px; right: 12px; width: 30px; height: 42px; background: #8FB0CF; border-radius: 6px 6px 3px 3px; }
+
+  .script { font-family: var(--font-script); font-style: italic; font-size: 20px; color: var(--wood-deep); margin-top: -8px; }
+
+  /* ---------- 유형 미리보기 ---------- */
+  .types { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .type-card { border-radius: var(--radius); padding: 16px 14px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .type-card.quick { background: var(--sky); }
+  .type-card.multi { background: var(--blush); }
+  .type-card svg { width: 30px; height: 30px; }
+  .quick svg { color: var(--blue); }
+  .multi svg { color: var(--wood-deep); }
+  .type-card h3 { font-size: 16px; font-weight: 900; }
+  .type-card p { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+
+  .meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--ink-soft); }
+  .meta span { padding: 4px 12px; border-radius: 99px; background: rgba(16,36,74,.06); }
+
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; min-height: 58px; border-radius: 99px;
+    background: var(--blue); color: #fff; font-weight: 700; font-size: 17px;
+    box-shadow: 0 14px 24px -14px rgba(10,95,208,.9);
+    transition: transform .15s ease, background .2s ease;
+  }
+  .btn:hover { background: var(--blue-deep); }
+  .btn:active { transform: scale(.98); }
+  .btn.ghost { background: transparent; color: var(--blue); box-shadow: inset 0 0 0 2px var(--blue); }
+  .btn.ghost:hover { background: var(--sky); }
+
+  .foot { margin-top: auto; padding-top: 8px; font-size: 12px; color: var(--ink-soft); text-align: center; letter-spacing: .04em; }
+
+  /* ---------- 질문 ---------- */
+  .quiz-head { display: flex; align-items: center; gap: 14px; }
+  .back { width: 40px; height: 40px; border-radius: 50%; background: var(--white); display: grid; place-items: center; box-shadow: 0 2px 8px rgba(16,36,74,.12); flex: none; }
+  .back svg { width: 18px; height: 18px; }
+  .progress { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .progress i { height: 6px; border-radius: 4px; background: rgba(16,36,74,.12); transition: background .3s; }
+  .progress i.done { background: var(--blue); }
+  .count { font-size: 13px; font-weight: 700; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
+  .qnum { font-size: 64px; line-height: 1; font-weight: 900; color: var(--blue); letter-spacing: -.04em; }
+  .question { font-size: clamp(22px, 6.4vw, 27px); line-height: 1.4; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option {
+    display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: center;
+    text-align: left; padding: 18px 18px; min-height: 84px;
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: inset 0 0 0 2px transparent, 0 8px 20px -16px rgba(16,36,74,.5);
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+    font-size: 16px; font-weight: 500; line-height: 1.5;
+  }
+  .option .letter { width: 36px; height: 36px; border-radius: 50%; background: var(--sky); color: var(--blue); font-weight: 900; display: grid; place-items: center; transition: background .2s, color .2s; }
+  .option:hover { box-shadow: inset 0 0 0 2px var(--blue), 0 8px 20px -16px rgba(16,36,74,.5); }
+  .option:active { transform: scale(.985); }
+  .option.picked { box-shadow: inset 0 0 0 2px var(--blue); background: #F2F8FF; }
+  .option.picked .letter { background: var(--blue); color: #fff; }
+
+  /* ---------- 분석 중 ---------- */
+  .loading { min-height: 60svh; align-items: center; justify-content: center; text-align: center; }
+  .dots { display: flex; gap: 8px; }
+  .dots i { width: 12px; height: 12px; border-radius: 50%; background: var(--blue); animation: pulse 1s infinite ease-in-out; }
+  .dots i:nth-child(2) { animation-delay: .15s; background: var(--wood); }
+  .dots i:nth-child(3) { animation-delay: .3s; }
+  @keyframes pulse { 0%, 80%, 100% { transform: scale(.6); opacity: .5; } 40% { transform: scale(1); opacity: 1; } }
+
+  /* ---------- 결과 ---------- */
+  .result-hero { border-radius: 28px; padding: 28px 24px 24px; color: #fff; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
+  .result-hero.quick { background: linear-gradient(160deg, var(--blue) 10%, var(--blue-deep)); }
+  .result-hero.multi { background: linear-gradient(160deg, #B27B66 10%, var(--wood-deep)); }
+  .result-hero .big-icon { position: absolute; right: -14px; top: -14px; width: 150px; height: 150px; opacity: .14; color: #fff; }
+  .result-hero .label { font-size: 12px; font-weight: 700; letter-spacing: .18em; opacity: .85; }
+  .result-hero h1 { font-size: 44px; line-height: 1.1; font-weight: 900; letter-spacing: -.03em; }
+  .result-hero .en { font-family: var(--font-script); font-style: italic; font-size: 22px; margin-top: -8px; opacity: .9; }
+  .result-hero p { font-size: 15.5px; line-height: 1.55; max-width: 28ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips span { padding: 5px 12px; font-size: 13px; font-weight: 500; border-radius: 99px; background: rgba(255,255,255,.18); }
+
+  .score { background: var(--white); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .score-row { display: grid; grid-template-columns: 64px 1fr 36px; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; }
+  .bar { height: 10px; border-radius: 6px; background: rgba(16,36,74,.08); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 6px; width: 0; transition: width .8s cubic-bezier(.2,.8,.2,1); }
+  .bar i.q { background: var(--blue); }
+  .bar i.m { background: var(--wood); }
+  .score-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+
+  .section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .section-title h2 { font-size: 22px; font-weight: 900; letter-spacing: -.01em; }
+  .stamp-count { font-size: 13px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
+
+  .missions { display: flex; flex-direction: column; gap: 12px; list-style: none; padding: 0; margin: 0; }
+  .mission { background: var(--white); border-radius: var(--radius); padding: 18px; display: grid; grid-template-columns: 1fr auto; gap: 6px 14px; transition: background .25s; }
+  .zone { grid-column: 1 / -1; display: inline-flex; width: fit-content; padding: 3px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+  .zone.cafe { background: var(--blush); color: var(--wood-deep); }
+  .zone.powder { background: var(--sky); color: var(--blue-deep); }
+  .mission h3 { font-size: 17px; font-weight: 900; letter-spacing: .01em; }
+  .mission .code { font-size: 12px; font-weight: 700; color: var(--ink-soft); letter-spacing: .1em; }
+  .mission p { grid-column: 1 / -1; font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+  .mission .prod { grid-column: 1 / -1; font-size: 12.5px; color: var(--ink); font-weight: 500; }
+  .stamp {
+    grid-row: 2 / 4; grid-column: 2; align-self: center;
+    width: 64px; height: 64px; border-radius: 50%;
+    border: 2px dashed #B9B2A3; color: #A39C8D; font-size: 11px; font-weight: 700; line-height: 1.2;
+    display: grid; place-items: center; text-align: center;
+    transition: transform .25s cubic-bezier(.3,1.6,.5,1), background .2s, color .2s, border .2s;
+  }
+  .mission.done { background: #F2F8FF; }
+  .mission.done .stamp { border: 2px solid var(--blue); background: var(--blue); color: #fff; transform: rotate(-10deg); }
+
+  .reward { border-radius: var(--radius); padding: 20px; background: var(--ink); color: #fff; display: flex; flex-direction: column; gap: 6px; }
+  .reward b { font-size: 18px; font-weight: 900; }
+  .reward p { font-size: 14px; opacity: .85; }
+  .reward.ready { background: var(--blue); }
+
+  .share { font-size: 13.5px; color: var(--ink-soft); background: rgba(16,36,74,.05); border-radius: var(--radius); padding: 16px 18px; }
+  .share b { color: var(--ink); }
+
+  @media (max-width: 360px) {
+    .types { grid-template-columns: 1fr; }
+    .booth { height: 200px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+
+<body>
+<main class="app">
+  <header class="topbar">
+    <div class="brand">PHILIPS</div>
+    <div class="event">CCFK 2026 · TYPE TEST<br>COEX THE PLATZ HALL</div>
+  </header>
+
+  <!-- 1. 인트로 -->
+  <section id="intro" class="screen" aria-labelledby="intro-title">
+    <div class="booth" aria-hidden="true">
+      <div class="panel panel-wood">
+        <div class="tag"><b>#홈카페</b><small>Real Espresso,<br>Made simple</small></div>
+        <span class="cup a"></span><span class="cup b"></span><span class="cup c"></span>
+        <div class="table"></div>
+      </div>
+      <div class="panel panel-blue"><span>PHILIPS</span></div>
+      <div class="panel panel-white">
+        <div class="tag"><b>#스타일링</b><small>Get Ready<br>With Me</small></div>
+        <span class="mirror"></span><span class="shirt"></span>
+        <div class="table"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <p class="eyebrow">Find your type</p>
+      <h1 id="intro-title" class="title">당신은 가전을 사용할 때<br><em>어떤 유형</em>의 사람입니까?</h1>
+      <p class="lead">5가지 질문에 답하면 나의 케어 스타일을 알려드려요. 결과에 맞는 부스 미션이 바로 열립니다.</p>
+    </div>
+
+    <div class="types">
+      <div class="type-card quick">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="18" r="9"/><path d="M17 18v-5M14 4h6M5 12h5M3 17h4M5 22h5"/></svg>
+        <h3>퀵 케어러</h3>
+        <p>짧은 시간 안에 완성도 높은 일상을 만드는 효율 추구형</p>
+      </div>
+      <div class="type-card multi">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="10" height="10" rx="2"/><rect x="18" y="4" width="10" height="10" rx="2"/><rect x="4" y="18" width="10" height="10" rx="2"/><rect x="18" y="18" width="10" height="10" rx="2"/></svg>
+        <h3>멀티 케어러</h3>
+        <p>다양한 라이프스타일 니즈를 한 번에 해결하는 만능 관리형</p>
+      </div>
+    </div>
+
+    <div class="meta"><span>질문 5개</span><span>약 1분</span><span>결과별 미션 3개</span></div>
+    <button id="start" class="btn" type="button">테스트 시작하기
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <p class="foot">Made for the Homemakers · Since 1891</p>
+  </section>
+
+  <!-- 2. 질문 -->
+  <section id="quiz" class="screen" hidden aria-live="polite">
+    <div class="quiz-head">
+      <button id="back" class="back" type="button" aria-label="이전 질문">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div id="progress" class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"></div>
+      <span id="count" class="count">1 / 5</span>
+    </div>
+    <div class="qnum" id="qnum">Q1</div>
+    <h2 id="question" class="question" tabindex="-1"></h2>
+    <div id="options" class="options"></div>
+  </section>
+
+  <!-- 3. 분석 중 -->
+  <section id="loading" class="screen loading" hidden aria-live="polite">
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="question">나의 유형을 분석하고 있어요</p>
+  </section>
+
+  <!-- 4. 결과 -->
+  <section id="result" class="screen" hidden aria-labelledby="result-title">
+    <div id="hero" class="result-hero">
+      <svg id="bigicon" class="big-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"></svg>
+      <span class="label">YOUR TYPE</span>
+      <h1 id="result-title" tabindex="-1"></h1>
+      <span id="en" class="en"></span>
+      <p id="desc"></p>
+      <div id="chips" class="chips"></div>
+    </div>
+
+    <div class="score" aria-label="유형별 선택 결과">
+      <div class="score-row"><span>퀵</span><div class="bar"><i id="barQ" class="q"></i></div><output id="numQ">0</output></div>
+      <div class="score-row"><span>멀티</span><div class="bar"><i id="barM" class="m"></i></div><output id="numM">0</output></div>
+    </div>
+
+    <div>
+      <div class="section-title">
+        <h2>나의 부스 미션</h2>
+        <span id="stampCount" class="stamp-count">0 / 3</span>
+      </div>
+      <p class="lead" style="margin-top:4px">홈 카페 존과 파우더룸 존을 돌며 미션을 완료하고 스탬프를 모아보세요.</p>
+    </div>
+    <ol id="missions" class="missions"></ol>
+
+    <div id="reward" class="reward">
+      <b id="rewardTitle">미션 3개를 모두 완료하면 리워드!</b>
+      <p id="rewardText">스태프에게 이 화면을 보여주고 바리스타 스티커를 받으세요.</p>
+    </div>
+
+    <p class="share"><b>콘텐츠로 남겨보세요.</b> 체험한 사진과 영상을 SNS에 공유하고 리워드 링크를 받으면 현장 리워드를 받을 수 있어요.</p>
+
+    <button id="retry" class="btn ghost" type="button">테스트 다시 하기</button>
+    <p class="foot">Philips Home Living · CCFK 2026</p>
+  </section>
+</main>
+
+<script>
+  /* ---------- 데이터 ---------- */
+  // t: 선택지가 가리키는 유형 (quick = 퀵 케어러, multi = 멀티 케어러)
+  const QUESTIONS = [
+    { q: "바쁜 아침, 가장 먼저 찾게 되는 가전은?", o: [
+      { t: "quick", x: "준비 시간을 줄여주는 빠르고 간편한 제품" },
+      { t: "multi", x: "그날 필요한 여러 기능을 선택할 수 있는 제품" } ] },
+    { q: "새로운 가전제품을 구매할 때 가장 먼저 보는 것은?", o: [
+      { t: "multi", x: "하나의 제품을 얼마나 다양하게 활용할 수 있는지" },
+      { t: "quick", x: "원하는 결과를 얼마나 빠르고 쉽게 완성하는지" } ] },
+    { q: "외출 직전 옷에 주름을 발견했다면?", o: [
+      { t: "quick", x: "눈에 띄는 부분만 빠르게 정리하고 바로 나간다" },
+      { t: "multi", x: "옷감과 부위에 맞춰 전체적인 상태까지 꼼꼼하게 관리한다" } ] },
+    { q: "나에게 더 매력적인 가전제품은?", o: [
+      { t: "multi", x: "여러 상황에서 폭넓게 활용할 수 있는 제품" },
+      { t: "quick", x: "복잡한 과정 없이 바로 사용할 수 있는 제품" } ] },
+    { q: "집에서 음료나 커피를 즐길 때 나는?", o: [
+      { t: "quick", x: "자주 마시는 메뉴를 빠르고 간편하게 완성한다" },
+      { t: "multi", x: "기분과 상황에 따라 메뉴와 옵션을 다양하게 바꾼다" } ] }
+  ];
+
+  const ICON_QUICK = '<circle cx="17" cy="18" r="9"/><path d="M17 18v-5M14 4h6M5 12h5M3 17h4M5 22h5"/>';
+  const ICON_MULTI = '<rect x="4" y="4" width="10" height="10" rx="2"/><rect x="18" y="4" width="10" height="10" rx="2"/><rect x="4" y="18" width="10" height="10" rx="2"/><rect x="18" y="18" width="10" height="10" rx="2"/>';
+
+  const TYPES = {
+    quick: {
+      name: "퀵 케어러", en: "Quick Carer", icon: ICON_QUICK,
+      desc: "짧은 시간 안에 완성도 높은 일상을 만드는 효율 추구형",
+      chips: ["#빠르게", "#간편하게", "#효율추구"],
+      missions: [
+        { code: "MISSION 01", name: "GUESS THE PROCESS", zone: "cafe", zoneName: "홈 카페 존",
+          text: "커피가 만들어질 순서를 GRIND → TAMP → BREW 카드로 먼저 맞혀 보세요. 실제 작동으로 정답을 확인합니다.",
+          prod: "바리스타나 플러스 BAR500" },
+        { code: "MISSION 02", name: "WHAT'S NEXT?", zone: "cafe", zoneName: "홈 카페 존",
+          text: "작동 전 Before 이미지를 보고, 정해진 횟수만큼 돌린 결과를 A / B / C 중에서 예상해 보세요.",
+          prod: "초퍼 HR1501" },
+        { code: "MISSION 03", name: "WRINKLE SPEEDRUN", zone: "powder", zoneName: "파우더룸 존",
+          text: "제한 시간 안에 구김을 최대한 깔끔하게 펴고, Before & After를 비교해 보세요.",
+          prod: "원턴 다리미 GC213" }
+      ]
+    },
+    multi: {
+      name: "멀티 케어러", en: "Multi Carer", icon: ICON_MULTI,
+      desc: "다양한 라이프스타일 니즈를 한 번에 해결하는 만능 관리형",
+      chips: ["#다양하게", "#한번에", "#만능관리"],
+      missions: [
+        { code: "MISSION 01", name: "GUESS THE PROCESS", zone: "cafe", zoneName: "홈 카페 존",
+          text: "커피가 만들어질 순서를 GRIND → TAMP → BREW 카드로 먼저 맞혀 보세요. 실제 작동으로 정답을 확인합니다.",
+          prod: "바리스타나 플러스 BAR500" },
+        { code: "MISSION 02", name: "BUILD YOUR MORNING", zone: "cafe", zoneName: "홈 카페 존",
+          text: "아침 상황 카드를 뽑고, 제한 시간 안에 필요한 Philips 제품 2개를 골라 나만의 모닝 세트를 완성하세요.",
+          prod: "바리스타나 플러스 + 계란찜기 HD9137" },
+        { code: "MISSION 03", name: "OUTFIT SOS", zone: "powder", zoneName: "파우더룸 존",
+          text: "SOS 상황 카드를 뽑고, 원턴 다리미로 제한 시간 안에 구김을 정리해 보세요.",
+          prod: "원턴 다리미 GC213" }
+      ]
+    }
+  };
+
+  /* ---------- 상태 ---------- */
+  const $ = (id) => document.getElementById(id);
+  const screens = ["intro", "quiz", "loading", "result"];
+  let index = 0;
+  let answers = []; // 각 문항에서 고른 선택지 번호 (0 = A, 1 = B)
+  let currentType = null;
+  let stamps = [false, false, false];
+
+  function show(name) {
+    screens.forEach((s) => { $(s).hidden = s !== name; });
+    window.scrollTo({ top: 0 });
+  }
+
+  /* ---------- 결과 계산: 5문항 중 3개 이상인 유형 ---------- */
+  function tally(list) {
+    const counts = { quick: 0, multi: 0 };
+    list.forEach((choice, i) => { counts[QUESTIONS[i].o[choice].t] += 1; });
+    return counts;
+  }
+  function getResult(list) {
+    const c = tally(list);
+    return c.quick > c.multi ? "quick" : "multi";
+  }
+
+  /* ---------- 질문 ---------- */
+  function renderQuestion() {
+    const item = QUESTIONS[index];
+    $("qnum").textContent = "Q" + (index + 1);
+    $("count").textContent = (index + 1) + " / " + QUESTIONS.length;
+    $("question").textContent = item.q;
+    const bar = $("progress");
+    bar.setAttribute("aria-valuenow", index);
+    bar.innerHTML = QUESTIONS.map((_, i) => '<i class="' + (i < index ? "done" : "") + '"></i>').join("");
+
+    const box = $("options");
+    box.innerHTML = "";
+    item.o.forEach((opt, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "option";
+      b.innerHTML = '<span class="letter">' + "AB"[i] + "</span><span></span>";
+      b.lastChild.textContent = opt.x;
+      b.addEventListener("click", () => choose(i, b));
+      box.appendChild(b);
+    });
+  }
+
+  let locked = false;
+  function choose(choice, el) {
+    if (locked) return;
+    locked = true;
+    el.classList.add("picked");
+    answers[index] = choice;
+    setTimeout(() => {
+      locked = false;
+      if (index < QUESTIONS.length - 1) {
+        index += 1;
+        renderQuestion();
+        $("question").focus({ preventScroll: true });
+      } else {
+        finish();
+      }
+    }, 280);
+  }
+
+  function finish() {
+    show("loading");
+    setTimeout(showResult, 1300);
+  }
+
+  /* ---------- 결과 ---------- */
+  function storeKey() { return "philips-ccfk-stamps-" + currentType; }
+  function loadStamps() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storeKey()) || "null");
+      if (Array.isArray(saved) && saved.length === 3) return saved.map(Boolean);
+    } catch (e) {}
+    return [false, false, false];
+  }
+  function saveStamps() { try { localStorage.setItem(storeKey(), JSON.stringify(stamps)); } catch (e) {} }
+
+  function showResult() {
+    currentType = getResult(answers);
+    const type = TYPES[currentType];
+    const counts = tally(answers);
+    stamps = loadStamps();
+
+    $("hero").className = "result-hero " + currentType;
+    $("bigicon").innerHTML = type.icon;
+    $("result-title").textContent = type.name;
+    $("en").textContent = type.en;
+    $("desc").textContent = type.desc;
+    $("chips").innerHTML = type.chips.map((c) => "<span>" + c + "</span>").join("");
+
+    $("numQ").textContent = counts.quick;
+    $("numM").textContent = counts.multi;
+    $("barQ").style.width = "0";
+    $("barM").style.width = "0";
+
+    const list = $("missions");
+    list.innerHTML = "";
+    type.missions.forEach((m, i) => {
+      const li = document.createElement("li");
+      li.className = "mission";
+      li.innerHTML =
+        '<span class="zone ' + m.zone + '">' + m.zoneName + "</span>" +
+        "<div><div class=\"code\">" + m.code + "</div><h3>" + m.name + "</h3></div>" +
+        '<button type="button" class="stamp" aria-pressed="false"></button>' +
+        "<p>" + m.text + "</p>" +
+        '<p class="prod">체험 제품 · ' + m.prod + "</p>";
+      li.querySelector(".stamp").addEventListener("click", () => { stamps[i] = !stamps[i]; saveStamps(); paintStamps(); });
+      list.appendChild(li);
+    });
+    paintStamps();
+
+    show("result");
+    $("result-title").focus({ preventScroll: true });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      $("barQ").style.width = (counts.quick / 5 * 100) + "%";
+      $("barM").style.width = (counts.multi / 5 * 100) + "%";
+    }));
+  }
+
+  function paintStamps() {
+    const done = stamps.filter(Boolean).length;
+    $("stampCount").textContent = done + " / 3 스탬프";
+    document.querySelectorAll(".mission").forEach((li, i) => {
+      li.classList.toggle("done", stamps[i]);
+      const s = li.querySelector(".stamp");
+      s.textContent = stamps[i] ? "완료!" : "탭해서 완료";
+      s.setAttribute("aria-pressed", String(stamps[i]));
+      s.setAttribute("aria-label", TYPES[currentType].missions[i].name + (stamps[i] ? " 완료됨" : " 완료로 표시"));
+    });
+    const all = done === 3;
+    $("reward").classList.toggle("ready", all);
+    $("rewardTitle").textContent = all ? "모든 미션을 완료했어요!" : "미션 3개를 모두 완료하면 리워드!";
+    $("rewardText").textContent = all
+      ? "이 화면을 스태프에게 보여주고 바리스타 스티커 리워드를 받으세요."
+      : "완료 후 스태프에게 이 화면을 보여주고 바리스타 스티커를 받으세요.";
+  }
+
+  /* ---------- 이벤트 ---------- */
+  $("start").addEventListener("click", () => {
+    index = 0; answers = [];
+    renderQuestion();
+    show("quiz");
+    $("question").focus({ preventScroll: true });
+  });
+  $("back").addEventListener("click", () => {
+    if (index === 0) { show("intro"); return; }
+    index -= 1;
+    answers.length = index;
+    renderQuestion();
+  });
+  $("retry").addEventListener("click", () => { answers = []; index = 0; show("intro"); });
+</script>
+</body>
+</html>
