@@ -67,23 +67,21 @@ h1, h2, h3, p {
 
 /* ==============================
    전체 페이지
+   상단 여백 0px, 콘텐츠 간격 6px
 ============================== */
 .app {
   max-width: 520px;
   min-height: 100svh;
   margin: 0 auto;
 
-  /* 상단 여백 축소 */
-  padding-top: max(3px, env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
   padding-left: 20px;
   padding-right: 20px;
 
   display: flex;
   flex-direction: column;
-
-  /* 기본 로고와 콘텐츠 간격 축소 */
-  gap: 10px;
+  gap: 6px;
 }
 
 /* ==============================
@@ -100,7 +98,7 @@ h1, h2, h3, p {
   flex-shrink: 0;
 }
 
-/* PHILIPS 공식 로고 */
+/* 왼쪽 PHILIPS 로고 */
 .brand {
   display: block;
   width: 165px;
@@ -110,7 +108,7 @@ h1, h2, h3, p {
   flex-shrink: 1;
 }
 
-/* CCFK 공식 로고 */
+/* 오른쪽 CCFK 로고 */
 .ccfk-logo {
   display: block;
   width: 165px;
@@ -119,29 +117,8 @@ h1, h2, h3, p {
   object-fit: contain;
   flex-shrink: 1;
 
-  /* CCFK 로고 아래로 9px */
-  transform: translateY(4px);
-}
-
-/* 첫 화면 비주얼과 헤더 간격 */
-.topbar + .screen:not([hidden]) {
-  margin-top: 0;
-}
-
-/* 작은 모바일 화면 */
-@media (max-width: 380px) {
-  .topbar {
-    gap: 8px;
-  }
-
-  .brand {
-    width: 145px;
-  }
-
-  .ccfk-logo {
-    width: 145px;
-    transform: translateY(19px);
-  }
+  /* 이전 6px에서 0px로 조정 */
+  transform: translateY(0px);
 }
 
 /* ==============================
@@ -739,8 +716,24 @@ h1, h2, h3, p {
 }
 
 /* ==============================
-   반응형
+   모바일 반응형
+   CCFK 이동값도 0px로 통일
 ============================== */
+@media (max-width: 380px) {
+  .topbar {
+    gap: 8px;
+  }
+
+  .brand {
+    width: 145px;
+  }
+
+  .ccfk-logo {
+    width: 145px;
+    transform: translateY(0px);
+  }
+}
+
 @media (max-width: 360px) {
   .types {
     grid-template-columns: 1fr;
@@ -755,7 +748,6 @@ h1, h2, h3, p {
     transition: none !important;
   }
 }
-
 </style>
 </head>
 
@@ -792,7 +784,6 @@ h1, h2, h3, p {
     </div>
 
     <div style="display:flex;flex-direction:column;gap:12px">
-
       <p class="eyebrow">Find your type</p>
 
       <h1 id="intro-title" class="title">
@@ -942,11 +933,9 @@ h1, h2, h3, p {
 </main>
 
 <script>
-
 /* ==============================
-   5개 질문과 유형 매칭
+   질문 5개 및 유형 매칭
 ============================== */
-
 const QUESTIONS = [
   {
     q: "바쁜 아침, 가장 먼저 찾게 되는 가전은?",
@@ -986,9 +975,8 @@ const QUESTIONS = [
 ];
 
 /* ==============================
-   결과 유형 데이터
+   유형 결과 데이터
 ============================== */
-
 const ICON_QUICK =
   '<circle cx="17" cy="18" r="9"/>' +
   '<path d="M17 18v-5M14 4h6M5 12h5M3 17h4M5 22h5"/>';
@@ -1044,9 +1032,7 @@ const TYPES = {
 /* ==============================
    상태 관리
 ============================== */
-
 const $ = id => document.getElementById(id);
-
 const screens = ["intro", "quiz", "loading", "result"];
 
 let index = 0;
@@ -1054,22 +1040,15 @@ let answers = [];
 let currentType = null;
 let locked = false;
 
-/* ==============================
-   화면 전환
-============================== */
-
+/* 화면 전환 */
 function show(name) {
   screens.forEach(s => {
     $(s).hidden = s !== name;
   });
-
   window.scrollTo(0, 0);
 }
 
-/* ==============================
-   결과 점수 계산
-============================== */
-
+/* 유형 점수 */
 function tally(list) {
   const counts = {quick: 0, multi: 0};
 
@@ -1080,16 +1059,15 @@ function tally(list) {
   return counts;
 }
 
+/* 5개 문항 중 3개 이상 선택된 유형 */
 function getResult(list) {
   const counts = tally(list);
-
   return counts.quick >= 3 ? "quick" : "multi";
 }
 
 /* ==============================
-   질문 표시
+   질문 렌더링
 ============================== */
-
 function renderQuestion() {
   const item = QUESTIONS[index];
 
@@ -1122,10 +1100,7 @@ function renderQuestion() {
   });
 }
 
-/* ==============================
-   답변 선택
-============================== */
-
+/* 답변 선택 */
 function choose(choice, element) {
   if (locked) return;
   locked = true;
@@ -1146,19 +1121,15 @@ function choose(choice, element) {
   }, 280);
 }
 
-/* ==============================
-   분석
-============================== */
-
+/* 결과 분석 */
 function finish() {
   show("loading");
   setTimeout(showResult, 1300);
 }
 
 /* ==============================
-   결과 화면
+   결과 렌더링
 ============================== */
-
 function showResult() {
   currentType = getResult(answers);
 
@@ -1214,10 +1185,7 @@ function showResult() {
   }));
 }
 
-/* ==============================
-   시작 버튼
-============================== */
-
+/* 시작 버튼 */
 $("start").addEventListener("click", () => {
   index = 0;
   answers = [];
@@ -1227,10 +1195,7 @@ $("start").addEventListener("click", () => {
   $("question").focus({preventScroll: true});
 });
 
-/* ==============================
-   이전 질문
-============================== */
-
+/* 이전 질문 */
 $("back").addEventListener("click", () => {
   if (locked) return;
 
@@ -1246,16 +1211,13 @@ $("back").addEventListener("click", () => {
   $("question").focus({preventScroll: true});
 });
 
-/* ==============================
-   다시 시작
-============================== */
-
+/* 테스트 다시 하기 */
 $("retry").addEventListener("click", () => {
   answers = [];
   index = 0;
   show("intro");
 });
-
 </script>
+
 </body>
 </html>
